@@ -1,8 +1,59 @@
 \section{Own Contribution}
+In this section we present four different case studies to answer our research questions. We begin with presenting
+\textit{Unknown Horizons} as it is the project which focus our efforts of improvement on. It is followed by \textit{Battle for
+Wesnoth}, \textit{Mega Glest} and \textit{0 A.D.}.
+The results are then evaluated and transferred to \textit{Unknown Horizons}.
 
 \subsection{Unknown Horizons}
+Unknown Horizons as described on the project website:
+\begin{quote}
+Unknown Horizons is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with a well balanced economy and with strategic trade and diplomacy.
+\end{quote}
 
-\subsection{Battle of Wesnoth}
+\subsubsection{RQ1}
+Unknown Horizons uses a largely inheritance based approach to describe ingame objects. As the game is programmed using
+the Python\footnote{Python website: \url{http://www.python.org}} programming language it is possible to use multiple
+inheritance. The project makes great use of this ability, resulting in great inheritance trees. To illustrate this we
+have generated an inheritance diagramm for the \textit{Settler} class in \figref{fig:settleruml}. 
+\begin{figure}[!htb]
+\includegraphics[angle=90,scale=0.25]{pics/settler_uml}
+\caption{Inheritance tree for the \textit{Settler} class in Unknown Horizons}
+\label{fig:settleruml}
+\end{figure}
+The tree consists of 16 classes including many cases of multiple inheritance. 
+
+Experience in working on this project has shown that making changes to any of the classes included in this tree is often
+a very big task and comes with a great risk of introducing bugs into the code. It is also very difficult or even
+impossible to write unit tests for these classes, as they are so dependent on each other and the game core, that it is
+almost impossible to create the needed environment synthetically.
+
+\paragraph{Settler Explained}
+The \textit{Settler} class is comprised of 4 basic classes: \textit{BasicBuilding}, \textit{SelectableBuilding},
+\textit{BuildableSingle} and \textit{CollectingProducerBuilding}. This is how most buildings in \textit{Unknown
+Horizons} are constructed. 
+
+\textit{BasicBuilding} is a base class for every building, it loads graphics and provides
+basic information like the name, position, owner and functionality for running costs and level upgrades.
+
+\textit{SelectableBuilding} is a decorating class, that implements functions for selecting the building ingame. It
+manages showing ingame menus and outlines. If a building is not supposed to be selectable, this class should not be
+inherited.
+
+\textit{BuildableSingle} is a decorating class which is used when building new buildings. It tells the game that it can
+only be built as single instance, so there is no building of multiple instances at once. For this purpose the code
+provides the \textit{BuildableLine}, \textit{BuildableRect}, etc. classes which can be used if needed.
+
+\textit{CollectingProducerBuilding} is a collectiv class to make the Settler have collecting units which pick up
+resources for usage and then produce something from it. This is easier to demonstrate on a \textit{LumberJack} for
+example, he picks up trees and produces planks from it. The Settler consumes resources (food, textiles, etc.) and in
+turn produces the abstract resource happiness.
+
+
+
+
+
+
+\subsection{Battle for Wesnoth}
 
 \subsection{Mega Glest}
 
