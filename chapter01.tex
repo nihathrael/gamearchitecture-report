@@ -4,17 +4,40 @@
 \section{Introduction}
 
 \subsection{Motivation}
+\UH{}\footnote{Unknown Horizons website: \url{http://www.unknown-horizons.org}} is an \OS{} real-time strategy game developed by a team of programmers, artists, game
+designers and many more around the globe. The first revision was committed in late 2007\footnote{First commit to \UH{}:
+\url{https://github.com/unknown-horizons/unknown-horizons/commit/53eec12fd8bb52ac1a6ccfdb097296c479499dfd}}.
+
+As the project evolved the games's code architecture grew dynamically, without much planned structure or
+designed architecture. This resulted in a very tight coupling between the different components inside the game, making
+it difficult to add/change certain functionalities in the game. This became clear when adding the boat builder building
+a while back, which resulted in months of fixing introduced bugs.
+
+\UH{} uses the outdated idea of making use of multiple inheritance to compose its in-game objects. Besides introducing
+very tight coupling between the different classes the current approach also does not allow non programmers to add new
+assets to the game. For an \OS{} project this is clearly not ideal, as user contributions would add great value to the
+project and save valuable programming time.
+
+The idea for this project is to research how this problem is solved in similar \OS{} games and to transfer the results to
+the \UH source-code. The following games have been chosen to be researched:
+\begin{itemize}
+    \item \BOW{}\footnote{Battle of Wesnoth website: \url{http://www.wesnoth.org}}
+    \item \AD{}\footnote{0 A.D. website: \url{http://wildfiregames.com/0ad/}}
+    \item \GLEST{}\footnote{Glest website: \url{http://glest.org/en/index.php}}
+\end{itemize}
+
 
 \subsection{Problem Statement}
+Two main questions should be answered by this project:
+\begin{itemize}
+    \item Which architecture do \OS{} games similar to \UH use to model their ingame objects?
+    \item Can users add objects without modifing the game's code and if yes -- how?
+\end{itemize}
 
 \subsection{Project Context}
-
-\subsection{Readers Guide}
-Probably  not...
-\footnote{Unknown Horizons website: \url{http://www.unknown-horizons.org}}
-\footnote{Battle of Wesnoth website: \url{http://www.wesnoth.org}}
-\footnote{0 A.D. website: \url{http://wildfiregames.com/0ad/}}
-\footnote{Glest website: \url{http://glest.org/en/index.php}}
+This project is conducted for the course \textit{TDT4570 - Game Technology Specialization Project}\footnote{TDT4570 Project
+description: \url{http://www.idi.ntnu.no/emner/tdt4570/}} which is part of
+\textbf{NTNU}'s computer science master program.
 
 %}}}
 

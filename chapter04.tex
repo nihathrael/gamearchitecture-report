@@ -1,23 +1,23 @@
 \section{Own Contribution}
 In this section we present four different case studies to answer our research questions. We begin with presenting
-\textit{Unknown Horizons} as it is the project which focus our efforts of improvement on. It is followed by \textit{Battle for
+\UH{} as it is the project which focus our efforts of improvement on. It is followed by \textit{Battle for
 Wesnoth}, \textit{Mega Glest} and \textit{0 A.D.}.
-The results are then evaluated and transferred to \textit{Unknown Horizons}.
+The results are then evaluated and transferred to \UH{}.
 
 \subsection{Unknown Horizons}
-Unknown Horizons as described on the project website:
+\UH{} as described on the project website:
 \begin{quote}
-Unknown Horizons is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with a well balanced economy and with strategic trade and diplomacy.
+\UH{} is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with a well balanced economy and with strategic trade and diplomacy.
 \end{quote}
 
 \subsubsection{RQ1}
-Unknown Horizons uses a largely inheritance based approach to describe ingame objects. As the game is programmed using
+\UH{} uses a largely inheritance based approach to describe ingame objects. As the game is programmed using
 the Python\footnote{Python website: \url{http://www.python.org}} programming language it is possible to use multiple
-inheritance. The project makes great use of this ability, resulting in great inheritance trees. To illustrate this we
+inheritance. The project makes great use of this ability, resulting in large inheritance trees. To illustrate this we
 have generated an inheritance diagramm for the \textit{Settler} class in \figref{fig:settleruml}. 
 \begin{figure}[!htb]
 \includegraphics[angle=90,scale=0.25]{pics/settler_uml}
-\caption{Inheritance tree for the \textit{Settler} class in Unknown Horizons}
+\caption{Inheritance tree for the \textit{Settler} class in \UH{}}
 \label{fig:settleruml}
 \end{figure}
 The tree consists of 16 classes including many cases of multiple inheritance. 
@@ -49,7 +49,7 @@ example, he picks up trees and produces planks from it. The Settler consumes res
 turn produces the abstract resource happiness.
 
 \paragraph{Datadriven?}
-Unknown Horizons uses a SQLite\footnote{SQLite website: \url{http://www.sqlite.org/}} to save parts of the object's
+\UH{} uses a SQLite\footnote{SQLite website: \url{http://www.sqlite.org/}} to save parts of the object's
 attributes. For example the size, health and name are saved in the database. This is necessary to make the highler level
 classes in the architecture reusable for subclasses. All buildings have a size, but it may be different from building
 type to building type. It is saved to an external file to make it easily editable by non programmers.
@@ -58,8 +58,8 @@ In summary we can say that the objects are partly datadriven, but usually it is 
 without writing new code.
 
 \subsubsection{RQ2}
-In order to add a new building to Unknown Horizons one has to look at the characteristics the building should have and
-then find the appropriate classes from the Unknown Horizons building classes collection. Those can then be combined to
+In order to add a new building to \UH{} one has to look at the characteristics the building should have and
+then find the appropriate classes from the \UH{} building classes collection. Those can then be combined to
 form new buildings.
 
 For example to create a settlement wall one could use the classes \textit{BuildableLine} and
@@ -67,7 +67,7 @@ For example to create a settlement wall one could use the classes \textit{Builda
 is very limited. All attributes of this building can then be added in the database by using any SQLite database manager.
 
 \subsubsection{RQ3}
-Modifying existing ingame objects in Unknown Horizons can be easy and very difficult. This depends on the degree of
+Modifying existing ingame objects in \UH{} can be easy and very difficult. This depends on the degree of
 change that is to be made. If only basic attributes like health, production time or similar are to be changed, then it
 can easily be done by someone who knows their way around the database. If however new functionality is required, for
 example an building which previously did not collect resources needs to collect resources, a change in the games code is
@@ -84,13 +84,44 @@ future versions, but it is not yet in a working state.
 
 
 \subsection{Battle for Wesnoth}
+\BOW{} as described on the project's website:
+\begin{quote}
+\textit{The Battle for Wesnoth is a Free, turn-based tactical strategy game with a high fantasy theme, featuring both
+single-player, and online/hotseat multiplayer combat. Fight a desperate battle to reclaim the throne of Wesnoth, or take
+hand in any number of other adventures... }
+\end{quote}
+
+\subsubsection{RQ1}
+\subsubsection{RQ2}
+\subsubsection{RQ3}
+\subsubsection{RQ4}
 
 \subsection{Mega Glest}
+\GLEST{} as described on the project's website:
+\begin{quote}
+\textit{MegaGlest is a free and open source 3D real-time strategy (RTS) game, where you control the armies of one of
+seven different factions: Tech, Magic, Egyptians, Indians, Norsemen, Persian or Romans. The game is setup in one of 16
+naturally looking settings, which -like the unit models- are crafted with great appreciation for detail. Additional game
+data can be downloaded from within the game at no cost.}
+\end{quote}
+
+\subsubsection{RQ1}
+\GLEST{} uses a mixture of inheritance and component-based object description. Basic things are set using
+inheritance, for example the \textit{UnitType} class inherits from the \textit{ProducibleType} class, as every unit in
+the game is producable. More advanced things are added to the unit as components, for example the \textit{UnitType} has
+\textit{Level},\textit{SkillType}, \textit{Resource}, \textit{CommandType} and \textit{UnitParticleSystemType}
+components. Units themselves are part of a bigger compontent hierarchy: Units are part of a \textit{FactionType}, which
+is part of a \textit{TechTree}. See \figref{LABEL} for a detailed structure analysis.
+\textit{Map}
+
+\subsubsection{RQ2}
+\subsubsection{RQ3}
+\subsubsection{RQ4}
 
 \subsection{0 A.D.}
 
 \subsection{Evaluation}
 
-\subsection{Transferring the Results to Unknown Horizons}
+\subsection{Transferring the Results to \UH{}}
 \subsubsection{Design}
 \subsubsection{Implementation}
