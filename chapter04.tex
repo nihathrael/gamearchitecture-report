@@ -111,12 +111,74 @@ inheritance, for example the \textit{UnitType} class inherits from the \textit{P
 the game is producable. More advanced things are added to the unit as components, for example the \textit{UnitType} has
 \textit{Level},\textit{SkillType}, \textit{Resource}, \textit{CommandType} and \textit{UnitParticleSystemType}
 components. Units themselves are part of a bigger compontent hierarchy: Units are part of a \textit{FactionType}, which
-is part of a \textit{TechTree}. See \figref{LABEL} for a detailed structure analysis.
-\textit{Map}
+is part of a \textit{TechTree}. See \figref{fig:glestclassh} for a detailed structure analysis. A class ending in
+\textit{*Type} is used to represent prototypes for the actual instance classes. For example the \textit{UnitType} class loads all
+necessary data from the XML definitions. Ingame a \textit{Unit} instance is used, which itself contains a
+\textit{UnitType} as information base.
 
-\subsubsection{RQ2}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[angle=90,width=\textwidth]{pics/gamehierarchy}
+    \caption{MegaGlest class hierarchy diagram}
+    \label{fig:glestclassh}
+\end{figure}
+
+\paragraph{Datadriven?}
+\GLEST{} is fully datadriven. All information needed for ingame objects, scenarios and campaigns is stored in XML files.
+This makes \GLEST{} more of a game engine with a focus on real-time strategy than only a game. Several\footnote{List of
+some mods: \url{http://www.moddb.com/games/megaglest/mods}} mods exist, proving that it is indeed possible to create new
+games using \GLEST{} as a game engine. 
+
+\subsection{RQ2}
+In order to add new objects to \GLEST{}, new XML files have to be created. It can contain the definition of a unit, campaign,
+tech tree or similar. See \listref{glestxml} for a shortened example of a basic unit definition. Every class has many
+parameters which allow the user to specify many details for every unit. 
+
+\begin{lstlisting}[language=XML,caption=A basic \GLEST{} (shortened) unit definition in XML, label=glestxml]
+<unit>
+	<parameters>
+		<size value="1"/>
+		<height value="2"/>
+		<max-hp value="450" regeneration="5"/>
+		<max-ep value="3000" regeneration="30"/>
+		<armor value="15"/>	
+		<armor-type value="leather"/>
+		<sight value="12"/>
+		<time value="200"/>	
+		<multi-selection value="true"/>	
+		<cellmap value="false"/>
+		<levels>
+			<level name="expert" kills="5"/>
+			<level name="master" kills="15"/>
+			<level name="legendary" kills="30"/>
+		</levels>
+...
+...
+</unit>
+\end{lstlisting}
+
 \subsubsection{RQ3}
+In \GLEST{} editing objects is easy: Simply change the XML files to match the new requirements. Changing things in the
+source code seems nicely doable as there are not too many inheritance based objects, instead composition is preferred.
+
 \subsubsection{RQ4}
+\GLEST{} comes with a map editor(\figref{fig:glestmapeditor}) to help with creating new maps to use ingame. It allows editing every possible detail
+of the map and is thus of great help for content creators. \GLEST{} also comes with a model viewer, with which the
+custom \textit{g3d} 3D model file format can be opened. It allows to view basic models and particle effects.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{pics/glesteditor}
+    \caption{\GLEST{} map editor}
+    \label{fig:glestmapeditor}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{pics/glestmodelviewer}
+    \caption{\GLEST{} model and particle viewer}
+    \label{fig:glestmodelviewer}
+\end{figure}
 
 \subsection{0 A.D.}
 
