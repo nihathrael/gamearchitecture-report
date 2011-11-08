@@ -7,6 +7,9 @@ The results are then evaluated and transferred to \UH{}.
 \subsection{Unknown Horizons}
 \UH{} as described on the project website:
 \begin{quote}
+
+\begin{center}\includegraphics[scale=0.2]{pics/uhlogo}\end{center}
+
 \UH{} is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with a well balanced economy and with strategic trade and diplomacy.
 \end{quote}
 
@@ -49,7 +52,7 @@ example, he picks up trees and produces planks from it. The Settler consumes res
 turn produces the abstract resource happiness.
 
 \paragraph{Datadriven?}
-\UH{} uses a SQLite\footnote{SQLite website: \url{http://www.sqlite.org/}} to save parts of the object's
+\UH{} uses a SQLite\footnote{SQLite website: \url{http://www.sqlite.org/}} database to save parts of the object's
 attributes. For example the size, health and name are saved in the database. This is necessary to make the highler level
 classes in the architecture reusable for subclasses. All buildings have a size, but it may be different from building
 type to building type. It is saved to an external file to make it easily editable by non programmers.
@@ -86,6 +89,9 @@ future versions, but it is not yet in a working state.
 \subsection{Battle for Wesnoth}
 \BOW{} as described on the project's website:
 \begin{quote}
+
+\begin{center}\includegraphics[scale=0.4]{pics/wesnothlogo}\end{center}
+
 \textit{The Battle for Wesnoth is a Free, turn-based tactical strategy game with a high fantasy theme, featuring both
 single-player, and online/hotseat multiplayer combat. Fight a desperate battle to reclaim the throne of Wesnoth, or take
 hand in any number of other adventures... }
@@ -99,6 +105,9 @@ hand in any number of other adventures... }
 \subsection{Mega Glest}
 \GLEST{} as described on the project's website:
 \begin{quote}
+
+\begin{center}\includegraphics[scale=0.5]{pics/glestlogo}\end{center}
+
 \textit{MegaGlest is a free and open source 3D real-time strategy (RTS) game, where you control the armies of one of
 seven different factions: Tech, Magic, Egyptians, Indians, Norsemen, Persian or Romans. The game is setup in one of 16
 naturally looking settings, which -like the unit models- are crafted with great appreciation for detail. Additional game
@@ -181,6 +190,67 @@ custom \textit{g3d} 3D model file format can be opened. It allows to view basic 
 \end{figure}
 
 \subsection{0 A.D.}
+
+\AD{} as described on the project's website:
+\begin{quote}
+\begin{center}\includegraphics[scale=0.8]{pics/0ad}\end{center}
+
+
+\textit{0 A.D. (pronounced “zero ey-dee”) is a free, open-source, cross-platform real-time strategy (RTS) game of
+ancient warfare. In short, it is a historically-based war/economy game that allows players to relive or rewrite the
+history of Western civilizations, focusing on the years between 500 B.C. and 500 A.D. The project is highly ambitious,
+involving state-of-the-art 3D graphics, detailed artwork, sound, and a flexible and powerful custom-built game engine.}
+\end{quote}
+
+\subsection{RQ1}
+\AD{} uses a completely component based approach to describe entities in the game. Units are described using a simple
+XML based format, making up single units of many components. The engine provides components like \textit{Attack},
+\textit{Cost}, \textit{Position} or \textit{VisualActor}. See \citet[Entity Component Documenation]{0adcomponents} for a
+complete list and details. These XML components are transferred to Javascript classes, which are inherited from C++
+component instances when loaded. A basic UML architecture diagram for the Javascript classes is given in \figref{TODO}. 
+
+\paragraph{Datadriven?}
+\AD{} is completely datadriven. All information needed to construct a unit is saved in the basic XML format.
+Interestingly many components allow being extended by using Lua\footnote{http://www.lua.org/} scripts. This way not only
+the unit's values, but also their behaviour is saved outside the basic engine code, decoupling the engine completely
+from the game logic. 
+
+\subsection{RQ2}
+New objects can easily be added to the game by adding new XML unit entity definitions. No extra source-code is
+necessary. A shortened sample unit definition is given in \listref{0adxml}.
+
+\begin{lstlisting}[language=XML,caption=A basic \AD{} (shortened) unit definition in XML, label=0adxml]
+<Entity parent="units/cart_cavalry_spearman_b">
+  <Attack>
+    <Melee>
+      <Hack>6.0</Hack>
+      <Pierce>16.0</Pierce>
+    </Melee>
+    <Charge>
+      <Hack>18.0</Hack>
+      <Pierce>48.0</Pierce>
+    </Charge>
+  </Attack>
+  <Health>
+    <Max>140</Max>
+  </Health>
+  <VisualActor>
+    <Actor>units/carthaginians/cavalry_spearman_a.xml</Actor>
+  </VisualActor>
+</Entity>
+\end{lstlisting}
+
+\subsection{RQ3}
+All units are defined using basic XML based definitions, making it easy to edit them with a normal text editor. No
+changes to the code are necessary to edit any unit.
+
+\subsection{RQ4}
+\AD{} comes with an editor called \textit{Atlas}. It is a map and scenario editor and is not meant for editing unit
+definitions. The editor is very similar to \GLEST{}'s editor in terms of features. It allows the user to edit any detail
+of a map and comes with a unit viewer, that previews animations. A detailed user-manual is provided on the project's developer
+pages \cite{0adeditor}.
+
+Tool support for editing unit entity descriptions is not provided.
 
 \subsection{Evaluation}
 
