@@ -4,8 +4,90 @@ implementation.
 
 \subsection{Design}
 
+\subsubsection{Prerequisites}
+As the code base of \UH{} is already quite big and evolved it is not possible to create a design that requires a
+complete rewrite of the code or which requires all the implementation work being done in one step. Therefore I aim at
+creating a design that can be implemented in smaller steps and is compatible with the current code design.
+
+\subsubsection{Data}
+A major flaw in the current \UH{} way of storing the game data is that all the game data is stored in SQLite databases,
+which are difficult to edit for non-programmers. As most content contributers are not programmers, this is a major
+concern. I will therefore move the data to a file based storage system, which is easily human read- and editable.
+
+\subsubsection{Code}
+To ensure compatibilty with the old inheritance based code, I will use a \textit{ComponentHolder} class, which manages all the
+components an object has. This class can be included into any inheritance tree and thereby extending the current code
+with the possibility of containing components. By using this approach I can slowely extract single classes from the code
+and move them into components.
+
+A component should be class to handle a specific task only and should be as independent
+as possible from other components. Clearly a component can depend on other components being present, for example if I
+decide to add a component that manages the production process, it will most likely depend on a component which manages
+storage of items for this entity. These dependencies should be checked when the object is constructed to warn the
+content creator if there are errors in this regard.
+Each component has to be able to save and load its state without depending on any work  being done by other components,
+to ensure they are loosely coupled and easy to test.
 
 \subsection{Implementation}
+In this section I will discuss the details of the implementation.
+
+\subsubsection{Dataformat}
+\UH{} already uses YAML\footnote{YAML website: \url{http://www.yaml.org/}} to describe scenarios and campaigns. The
+reason to choose YAML at the time was, that it is very easy to read and edit by humans. This comes at the cost of being
+a little slower when parsing. As most data can be cached and has to be loaded from disc only once, this is not a major
+concern.
+
+I decided to use YAML for the object description files as well, the requirements match and it avoids adding another
+dependency to the project. The result of converting most of the data in the database to a YAML based file for each
+object looks similar as \listref{uhyaml}. It contains all basic information needed for every building and a list of components
+that are used by this specific building. As the conversion from an inheritance based approach to a component based
+approach is only done in small steps, we have to specify the original base class for every object using the
+\textit{baseclass} attribute. 
+
+
+\begin{lstlisting}[language=python,caption=A basic (shortened) building definition in YAML for \UH{}, label=uhyaml]
+id: 24
+name: Brickyard
+baseclass: production.Refiner
+radius: 8
+cost: 15
+cost_inactive: 5
+size_x: 2
+size_y: 4
+inhabitants_start: 1
+inhabitants_max: 1
+button_name: brickyard-1
+tooltip_text: Turns clay into bricks.
+settler_level: 1
+buildingcosts: {1: 500, 4: 6, 6: 1}
+components:
+- HealthComponent: {maxhealth: 1000}
+- ProducerComponent:
+    productionlines:
+      33:
+        produces:
+        - [7, 1]
+        consumes:
+        - [21, -1]
+        time: 15
+- StorageComponent:
+    inventory:
+      SlotsStorage:
+        slot_sizes: {21: 4, 7: 10}
+actionsets:
+  as_brickyard0: {level: 0}
+\end{lstlisting}
+
+\paragraph{Loading and Caching}
+As loading YAML files is too slow to be repeated for every object creation in game, we have to cache the data after
+reading it once. We use the abilities of Python to create a special type instance for every object. This type instance can
+than be instantiated to a "normal" python object instance. It can be thought of as creating classes on the fly. We
+create a lumberjack type for example, so for every new lumberjack in the game we can create a new object instance from
+this type. 
+Since the data from the YAML file is only read once during type creation, we efficiently cache all the data in the
+type instance for later use.
+
+
 
 
 
