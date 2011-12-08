@@ -98,9 +98,85 @@ hand in any number of other adventures... }
 \end{quote}
 
 \subsubsection{RQ1}
+\BOW{} comes with its own markup language, \textit{WesnothMarkupLanguage} - \textit{WML}, to describe units, campaigns, AIs,
+missions, maps, sounds, etc. \textit{WML} is similar to other markup languages like \textit{XML}, but more human readable and provides
+some basic functions to create logic - like basic if-clauses and variables. 
+Entities are described in a component like way, not all clauses are components though. For most clauses like skills,
+attacks and races components are used in code. Other attributes such as \textit{[portrait]} are not mapped to their own
+component, but are just read as data for the basic unit class. 
+\BOW{} parses all the tags in a config file into the config class where the single tags can be easily accessed by code.
+The actual use of the tags is left to the code using the config. Classes like unit and race read values from the config
+class.
+
+To ease development it is also possible to access many internals using a lua API. This is used for reading in
+tags for maps and units. According to the development team the lua API can be used for modding as well, this behaviour
+is not documented anywhere though.
+
+\paragraph{Datadriven?}
+As all game content is described using \textit{WML}, \BOW{} can be sean as completely datadriven. Wesnoth contains an in-game option
+to download other mods, containing new units, campaigns, etc. Within the concept of a round based strategy game the
+engine completely independent of the content.
+
 \subsubsection{RQ2}
+New objects are added to the game by adding a new file containg basic \textit{WML} with the description of the unit.
+Sinc ethe game is fully modable all units, maps and campaigns can be replaced just by editing and adding new files into
+the basic directory structure \cite{wesnothaddunit}.
+
+In order to add new \textit{WML} attributes, the c++ sourcecode has to be changed to recognize them. The \BOW{} parser
+does not know anything about the tags it loads, therefore the only constraint is that the new tag should be used/accessed
+in another c++ class, like the unit class, or lua helper code.
+
+\begin{lstlisting}[language=XML,caption=A basic (shortened) \BOW{} unit definition in WML, label=wesnothwml]
+[unit_type]
+    id=Elvish Lady
+    name= _ "female^Elvish Lady"
+    gender=female
+    race=elf
+    image="units/elves-wood/lady.png"
+    profile="portraits/elves/lady.png"
+    {MAGENTA_IS_THE_TEAM_COLOR}
+    hitpoints=41
+    movement_type=woodland
+    movement=6
+    experience=150
+    level=3
+    alignment=neutral
+    advances_to=null
+    {AMLA_DEFAULT}
+    cost=10
+    usage=null
+    description= _ "Elves choose their leaders for their wisdom and sensitivity to the balance of universal forces; foresight is what has protected them in times of uncertainty. Their just reign is rewarded by the unflagging fealty of their people, which is the greatest gift for which any ruler could ask."
+    [portrait]
+        size=400
+        side="right"
+        mirror="true"
+        image="portraits/elves/transparent/lady.png"
+    [/portrait]
+[/unit_type]
+\end{lstlisting}
+
 \subsubsection{RQ3}
+To edit a unit in \BOW{} the \textit{WML} files have to be changed, nothing else has to be done. In order to change the
+units behaviour the c++ code has to be edited.
+
 \subsubsection{RQ4}
+\BOW{} comes with a set of tools to help developers and content creators. Wenoth comes with a  map editor, tools to
+validate user created \textit{WML} and provides an \textit{Eclipse}\footnote{Eclipse Project Homepage:
+\url{http://www.eclipse.org}} plug-in, called \textit{"The Battle for Wesnoth UMC Development IDE"}\footnote{UMC Plugin
+Website: \url{http://eclipse.wesnoth.org/}}.
+
+It can setup
+campaigns, races and more for the user, provides syntax highlighting for the WML and also some means of auto-completion. 
+It can also launch the map editor and game with the specified campaigns and maps the user is working on and provides
+means of using the WML validation tools. A screenshot of the WML editor is provide in \figref{fig:wesnothumc}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{pics/wesnothumc}
+    \caption{Wesnoth UMC Plugin WML editor}
+    \label{fig:wesnothumc}
+\end{figure}
+
 
 \subsection{Mega Glest}
 \GLEST{} as described on the project's website:
@@ -206,14 +282,25 @@ involving state-of-the-art 3D graphics, detailed artwork, sound, and a flexible 
 \AD{} uses a completely component based approach to describe entities in the game. Units are described using a simple
 XML based format, making up single units of many components. The engine provides components like \textit{Attack},
 \textit{Cost}, \textit{Position} or \textit{VisualActor}. See \citet[Entity Component Documenation]{0adcomponents} for a
-complete list and details. These XML components are transferred to Javascript classes, which are inherited from C++
-component instances when loaded. A basic UML architecture diagram for the Javascript classes is given in \figref{TODO}. 
+complete list and details. 
+
+It is possible to implement components in c++ and javascript. The general idea is to use
+javascript where possible and only use c++ if necessary for performance or communication with the game engine, for
+instance for rendering. The components communicate with each other using a message based system or calling methods on
+other components directly. The first approach is to be prefered, as the implementations remain seperated from each other
+this way. A component can send messages directly to a specific component type, or broadcast it to everything listening to
+the specific message. A entity in the game is basically a number associated with a set of components. There is no
+inheritance involved in creating an entity, other than inside a single component.
+
+The engine allows to \textit{hotload} components implemented in javascript, meaning changes in the javascript files will
+be detected while the game is running and loaded into the engine. This enables the developer to make changes to the
+components behaviour while the game is running and directly seeing his results in-game.
 
 \paragraph{Datadriven?}
 \AD{} is completely datadriven. All information needed to construct a unit is saved in the basic XML format.
-Interestingly many components allow being extended by using Lua\footnote{http://www.lua.org/} scripts. This way not only
-the unit's values, but also their behaviour is saved outside the basic engine code, decoupling the engine completely
-from the game logic. 
+The XML format is specified by the components directly, making it easy to extend the markup language by new components.
+As the game logic is implemented using these external components, it is easy to exchange the complete gameplay logic,
+thus enabling very wide modding support and seperating the gameplay logic from the main engine.
 
 \subsection{RQ2}
 New objects can easily be added to the game by adding new XML unit entity definitions. No extra source-code is
@@ -253,6 +340,7 @@ pages \cite{0adeditor}.
 Tool support for editing unit entity descriptions is not provided.
 
 \subsection{Evaluation}
+
 
 \subsection{Transferring the Results to \UH{}}
 \subsubsection{Design}
