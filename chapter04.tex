@@ -340,8 +340,35 @@ pages \cite{0adeditor}.
 Tool support for editing unit entity descriptions is not provided.
 
 \subsection{Evaluation}
+All four games provide datadriven approaches in varying degree.
 
+\UH{} provides an SQLite driven approach, which usually requires editing some code to add new entities to the game. The
+code is made up of huge inheritance trees, making it difficult to change the code or add new features. Storing the data
+in an SQLite database makes it more difficult for contributers to change values, as they first have to learn how to use
+an SQLite browser and understand how databases work. The plus side for this is, that relational queries are very fast.
 
-\subsection{Transferring the Results to \UH{}}
-\subsubsection{Design}
-\subsubsection{Implementation}
+\BOW{} and \GLEST{} allow the addition of units using basic markup languages like \textit{WML} and \textit{XML}. \BOW{}
+provides basic means for scripting events and behaviour using the \textit{WML} and possibly the lua extension. Both
+games use basic classes to which the data stored in the entity files is mapped, changing fundamentel things about the
+way the game behaves requires work on the code. Both games have seperated the concerns by using a component similar
+approach, making editing the sourcecode easier than in \UH{}.
+
+\AD{} is the only game in this study that uses a purely component based system. An entity in the game is represented by
+a set of components tied to an ID, there are no base classes for units or buildings. They are entirely made up of
+components. The engine allows scripting the components in lua to ease development, but provides the possibility to
+easily port components to c++, should speed be a problem. Components written in lua can be hotloaded during the run-time
+of the game, making it easy to debug and work on single parts of the game and directly seing the impact on the game.
+
+\section{Transferring the Results to \UH{}}
+Looking at the ease of content creation of \BOW{}, \GLEST{} and \AD{} it becomes clear that \UH{} is not nearly as
+flexible and easy to use as the other projects. While \AD{} has the cleanest component based architecture, it is not
+possible to transfer the design completely to \UH{}. 
+
+As the current code is not a component driven design, it is very difficult to convert the entire code structure to a
+component based architecture in one big refactoring. Therefore a middle ground has to be found here, where the code can
+be refactored and changed to components in small parts. The difference between c++ and lua components is not suitable
+for \UH{} as it is written entirely in Python, so there is no possibility to differentiate between compiled and scripted
+components.
+
+An implementation similar to \BOW{} or \GLEST{} seems useful, keeping in mind the specific requirements for \UH{}.
+
