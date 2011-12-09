@@ -157,6 +157,95 @@ dependency resolution, which can't circlular dependencies, etc. It should be goo
 simple and fast, as it uses python built-in \textit{sorted()} methode.
 
 
+\subsection{Added Components}
+Since the scope of the project is not big enough turn the \UH{} codebase into a completely component driven
+architecture, only parts of the classes have been converted to \textit{Component}s yet. The following \textit{Component}
+implementations have been made:
+\begin{itemize}
+    \item AmbientSoundComponent
+    \item HealthComponent
+    \item NamedComponent + Subclasses
+    \item StanceComponent
+    \item StorageComponent
+    \item TradePostComponent
+    \item Producer
+\end{itemize}
+
+\paragraph{AmbientSoundComponent}
+The \textit{AmbientSoundComponent} takes care of playing sounds in-game. It can position sounds at the current position
+of an entity and saves a list of all the sounds an entity can play. The goal of this component is to collect all sound
+handling code in one place. Since we do not have a lot of this code, this component was a good start together with the
+\textit{NamedComponent}.
+
+\paragraph{HealthComponent}
+Together with the \textit{StanceComponent} this was one of the components that had been created during the project's
+participation in \textit{Google Summer of Code 2011}. This was the first try of working on a component based system. I
+did not make major changes to this component, other than fitting it into the new interface.
+
+Its purpose is to provide a health counter for objects and handle everything that is connected with this, like drawing
+life-bars.
+
+\paragraph{NamedComponent + Subclasses}
+The \textit{NamedComponent} provides unique names for an object throughout one game. For this class several subclasses
+exist, that provide different names. Namely these are:
+\begin{itemize}
+    \item \textit{ShipNameComponent}
+    \item \textit{PirateShipNameComponent}
+    \item \textit{SettlementNameComponent}
+\end{itemize}
+
+\paragraph{StanceComponent}
+The \textit{StanceComponent} is used to set the combat stance of the object. It can be aggresive, defensive or neutral.
+This Component was introduced during the \textit{Google Summer of Code 2011} as part of the combat system
+implementation.
+
+\paragraph{StorageComponent}
+The \textit{StorageComponent} provides the entity with a sort of invertory where it can store different resources. This
+is a fairly complex component, as it can use different storage implementations internally. For this reason this
+component has to implement its own \textit{get\_instance()} methode. An example markup for the \textit{StorageComponent}
+using an inventory that can handle a fixed set of slots with specific sizes is given in \figref{storagyaml}.
+
+\begin{lstlisting}[language=python,caption=YAML representation of the StorageComponent using a SlotStorage,
+label=storagyaml]
+- StorageComponent:
+    inventory:
+      SlotsStorage:
+        slot_sizes: {28: 8, 5: 8}
+\end{lstlisting}
+
+\paragraph{TradePostComponent}
+The \textit{TradePostComponent} adds trading functionality to the entity. This component handles selling and buying
+resources from other players or the Free-Trader.
+
+\paragraph{Producer}
+This is most complex component in the game so far and I estimate it to stay this way, even if more components are added.
+It manages the production of goods in the game, but using production lines. Since this is a very complex system it is
+very bug-prone and extracting it into a single component and thereby removing it from the main hierarchie of buildings
+was not easy. The code depended heavily on other classes being in the inheritance tree and debugging this was very
+difficult and time-consuming.
+
+The \textit{Producer} component greatly eases the changing and adjusting of production lines for the content creator, as
+all information is now at one place. Using the old SQLite system, the content creator had to look at countless tables to
+be able to get an overview of even a single production line. This has greatly improved. \listref{produceryaml} provides a short
+example.
+
+\begin{lstlisting}[language=python,caption=YAML representation of the Producer with two production lines,
+label=produceryaml]
+- ProducerComponent:
+    productionlines:
+      7:
+        produces:
+        - [10, 1]
+        consumes:
+        - [2, -1]
+        time: 1
+      47:
+        produces:
+        - [31, 1]
+        consumes:
+        - [30, -1]
+        time: 1
+\end{lstlisting}
 
 
 
