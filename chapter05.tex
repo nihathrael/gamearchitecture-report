@@ -42,7 +42,7 @@ dependency to the project. The result of converting most of the data in the data
 object looks similar as \listref{uhyaml}. It contains all basic information needed for every building and a list of components
 that are used by this specific building. As the conversion from an inheritance based approach to a component based
 approach is only done in small steps, we have to specify the original base class for every object using the
-\textit{baseclass} attribute. 
+\textit{baseclass} attribute.
 
 
 \begin{lstlisting}[language=python,caption=A basic (shortened) building definition in YAML for \UH{}, label=uhyaml]
@@ -79,13 +79,82 @@ actionsets:
 \end{lstlisting}
 
 \paragraph{Loading and Caching}
-As loading YAML files is too slow to be repeated for every object creation in game, we have to cache the data after
+As loading YAML files is too slow to be repeated for every object creation in game, the data has to be cached after
 reading it once. We use the abilities of Python to create a special type instance for every object. This type instance can
 than be instantiated to a "normal" python object instance. It can be thought of as creating classes on the fly. We
 create a lumberjack type for example, so for every new lumberjack in the game we can create a new object instance from
-this type. 
+this type.
 Since the data from the YAML file is only read once during type creation, we efficiently cache all the data in the
 type instance for later use.
+
+\subsubsection{Code Layout}
+To achive easy compatibilty with the old inheritance based approach, a \textit{ComponentHolder} class has been
+introduced, that manages a set of componets. This class can be included into the normal hierarchie of any ingame object.
+
+\paragraph{ComponentHolder}
+The \textit{ComponentHolder} has a very basic interface:
+\begin{itemize}
+    \item initialize()
+    \item add\_component()
+    \item has\_component()
+    \item get\_component()
+    \item remove\_component()
+    \item save()/load()/remove()
+\end{itemize}
+The add/has/get\_component() methodes are pretty clear, they add \textit{Component}s to the \textit{ComponentHolder}, check if
+they are available for this \textit{ComponentHolder} or return a specified \textit{Component}.
+
+It is note-worthy that the \textit{ComponentHolder} contains an extra \textit{initialize()} methode, which is seperate from the
+normal constructor. This methode has to be called after instance creation on any class that inherits from the
+\textit{ComponentHolder} class. This is a work-around for the problem that certain attributes, such as the game-engine's
+visual instance, needed in the components are only ready after the entire constructor hierarchy has been executed to the
+top. This will hopefully be repaired after everything has been moved to components, but for the moment this is a
+necessary evil.
+
+\paragraph{Component}
+To represent a component the \textit{Component} class has been created. Each component should take care of a certain set
+of functionality, which should be as independent as possible from any other code. Of course this is not always
+achievable, as it soon becomes clear that special components will rely on the existance of other components. For example
+a production component might rely on the presence of a storage component, with which it can work.
+
+Each \textit{Component} has to implement the basic interface:
+\begin{itemize}
+    \item initialize()
+    \item load()/save()
+    \item remove()
+    \item get\_instance() - Classmethode
+\end{itemize}
+As with the \textit{ComponentHolder} the \textit{Component} has to implement an \textit{initialize()} methode, in which
+all the setup should be done. This methode is called automatically by the \textit{ComponentHolder}, so no special care
+has to be taken here.
+
+The \textit{load()}/\textit{save()} methodes are called by the \textit{ComponentHolder} and should
+implement loading and saving the components state into the given database. This should be done in a way, that the
+component does not relay on any other part of the code to correctly restore its state on loading.
+
+The \textit{get\_instance()} methode is a class methode, its purpose is to return an instance of the component, given data loaded
+from the yaml file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
+loaded from yaml as arguments to the class. For more sophisticated components this methode might need to be
+reimplemented. An example of this is the \textit{StorageComponent}.
+
+Each component has to set the class's \textit{NAME} variable to unique string. Components that inherit from other
+components can usually keep the name of the inherited class, as they are not used in the same \textit{ComponentHolder}
+instance. Keeping the name the same, also ensures that if they implement similar functionality it is possible to call
+\textit{get\_component()} with the parent class, and still receiving the correct implementation. This is used for example
+for names. A \textit{NamedComponent} has been implemented. It handles giving names to objects. There are some special
+implenentations of this, for example the \textit{ShipNameComponent}, which uses special names designated for ships. If a
+\textit{ShipNameComponent} component is present in the \textit{ComponentHolder} class and get\_component{NamedComponent}
+is called, the \textit{ShipNameComponent} is returned, as they both use the same \textit{NAME} variable.
+
+\subparagraph{Dependencies}
+\textit{Components} can depend on other components to exist. For this every \textit{Component} class can use the
+\textit{DEPENDENCIES} class variable. It is a list of \textit{Component} classes. The classes specified will be
+initialized before the class that lists them as dependencies. 
+
+The basic dependency resolution is done by implementing the \textit{\_\_lt\_\_()} (less than) methode on the Component,
+so that a list of \textit{Components} can be sorted by dependency order. This is of course a very basic form of
+dependency resolution, which can't circlular dependencies, etc. It should be good enough for this purpose and is very
+simple and fast, as it uses python built-in \textit{sorted()} methode.
 
 
 
