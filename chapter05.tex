@@ -133,8 +133,8 @@ implement loading and saving the components state into the given database. This 
 component does not relay on any other part of the code to correctly restore its state on loading.
 
 The \textit{get\_instance()} methode is a class methode, its purpose is to return an instance of the component, given data loaded
-from the yaml file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
-loaded from yaml as arguments to the class. For more sophisticated components this methode might need to be
+from the YAML file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
+loaded from YAML as arguments to the class. For more sophisticated components this methode might need to be
 reimplemented. An example of this is the \textit{StorageComponent}.
 
 Each component has to set the class's \textit{NAME} variable to unique string. Components that inherit from other
@@ -247,9 +247,77 @@ label=produceryaml]
         time: 1
 \end{lstlisting}
 
+\subsection{Testing}
+To ensure working code, three types of tests were used:
+\begin{enumerate}
+    \item Unit Test
+    \item System Test
+    \item Smoke Test
+\end{enumerate}
 
+\paragraph{Unit and System Tests}
+\UH{} has a set of unit and system tests. Unit tests are basic tests for single classes to check their functionality.
+System tests try to test the working of the entire game, instead of just a small function. It has a more general scope
+to discover bugs in game logic.
+After making the changes to the code, all tests have been repaired to work as expected. Also a few tests concerning the
+new component system have been added. Together with the community I am working on extending the tests to cover more code
+and to make sure my changes are stable before they are merged into the mainline of development.
+
+\paragraph{Smoketests}
+A smoke test describes a kind of test in which the goal is to run as much code of the system as possible and see if it
+fails \cite{Mcconnell:1996:DBS:624614.625626}.
+
+To emulate this, I used our artificial intelligence player. I started the game on 20 times the normal speed and
+let 3 AI players play for a while. This helped me find a lot of bugs, especially in the beginning. As python is not
+strictly typed, the interpreter discovers a lot of bugs, like missing attributes, only at runtime. Therefore it is
+crucial to acutally run as much game code as possible.
 
 \section{Evaluation}
+In this section I will evaluate the project and the result.
+
 \subsection{Project}
+The project was executed in an autonomous way, without much interaction of the professor or other mentors. The focus was
+on mainly working with other people involved in \UH{} or other \OS{} games discussed in this work. This way it has a
+direct impact on the work of \UH{} and might have lead to some additional insights for members of other teams.
+
+I believe the result matches the style of project execution, it had more emphasis on implementing the new
+system than production many pages of documentation. A lot of time has been invested to implement a stable system that can be used in the
+production mainline of development in \UH{}.
+
+The plans for the implementation were worked on and discussed with the \UH{} team throughout the project and during the
+weekly meetings\footnote{Meeting logs:
+\url{http://meetings.christoph-egger.org/unknown-horizons/2011/unknown-horizons.2011-10-16-17.02.html}}\footnote{Meeting
+logs 2: \url{http://meetings.christoph-egger.org/unknown-horizons/2011/unknown-horizons.2011-12-04-17.04.html}}. This
+allowed me to identify weeknesses in my design and ensure that I have the same ideas, of how it should look, as the rest
+of the team.
+
 \subsection{Results}
+This project provides two main results:
+\begin{enumerate}
+    \item Case-study of four existing systems to describe in-game entities
+    \item Implementation of a new component system for \UH
+\end{enumerate}
+
+\paragraph{Case Study}
+In the case study I have explained how the four project \UH{}, \BOW{}, \GLEST{} and \AD{} represent their objects as
+in dataformat as well as in code. It provides insight for new projects on how a component based system can be designed
+and on the quality of code-architecture in \OS{} games.
+
+While the last part has not been explicitly discussed, it is clear that some thought on how to design these systems is
+being put into the systems. Especially \AD{} provides a very cleanly designed system, designed for ease of development
+and content creation with a very clear code structure.
+It provides a purely component based system, making it the best designed of the four discussed projects under this point
+of research.
+
+\paragraph{Implementation}
+The first lesson learned from this project is that refactoring the entire code of \UH{} to component based system is a
+lot of work, that if persued further will require enourmous effort on the side of the developer team. Since it provides
+great benefits to the code-quality, as in less coupling and thus better testability, it is likely that more work in this
+area will be done.
+
+The implementation allows for an easier representation of entities outside the code, making it very interesting
+for content creators, as they can now change the game behaviour of entities in an easy way -- by just using a simple
+text-editor.
+
+
 \subsection{Methods}
