@@ -25,7 +25,7 @@ as possible from other components. Clearly a component can depend on other compo
 decide to add a component that manages the production process, it will most likely depend on a component which manages
 storage of items for this entity. These dependencies should be checked when the object is constructed to warn the
 content creator if there are errors in this regard.
-Each component has to be able to save and load its state without depending on any work  being done by other components,
+Each component has to be able to save and load its state without depending on any work being done by other components,
 to ensure they are loosely coupled and easy to test.
 
 \subsection{Implementation}
@@ -89,7 +89,7 @@ type instance for later use.
 
 \subsubsection{Code Layout}
 To achive easy compatibilty with the old inheritance based approach, a \textit{ComponentHolder} class has been
-introduced, that manages a set of componets. This class can be included into the normal hierarchie of any ingame object.
+introduced, that manages a set of components. This class can be included into the normal hierarchy of any in-game object.
 
 \paragraph{ComponentHolder}
 The \textit{ComponentHolder} has a very basic interface:
@@ -101,11 +101,11 @@ The \textit{ComponentHolder} has a very basic interface:
     \item remove\_component()
     \item save()/load()/remove()
 \end{itemize}
-The add/has/get\_component() methodes are pretty clear, they add \textit{Component}s to the \textit{ComponentHolder}, check if
+The add/has/get\_component() methods are pretty clear, they add \textit{Component}s to the \textit{ComponentHolder}, check if
 they are available for this \textit{ComponentHolder} or return a specified \textit{Component}.
 
-It is note-worthy that the \textit{ComponentHolder} contains an extra \textit{initialize()} methode, which is seperate from the
-normal constructor. This methode has to be called after instance creation on any class that inherits from the
+It is note-worthy that the \textit{ComponentHolder} contains an extra \textit{initialize()} method, which is separate from the
+normal constructor. This method has to be called after instance creation on any class that inherits from the
 \textit{ComponentHolder} class. This is a work-around for the problem that certain attributes, such as the game-engine's
 visual instance, needed in the components are only ready after the entire constructor hierarchy has been executed to the
 top. This will hopefully be repaired after everything has been moved to components, but for the moment this is a
@@ -114,7 +114,7 @@ necessary evil.
 \paragraph{Component}
 To represent a component the \textit{Component} class has been created. Each component should take care of a certain set
 of functionality, which should be as independent as possible from any other code. Of course this is not always
-achievable, as it soon becomes clear that special components will rely on the existance of other components. For example
+achievable, as it soon becomes clear that special components will rely on the existence of other components. For example
 a production component might rely on the presence of a storage component, with which it can work.
 
 Each \textit{Component} has to implement the basic interface:
@@ -124,17 +124,17 @@ Each \textit{Component} has to implement the basic interface:
     \item remove()
     \item get\_instance() - Classmethode
 \end{itemize}
-As with the \textit{ComponentHolder} the \textit{Component} has to implement an \textit{initialize()} methode, in which
-all the setup should be done. This methode is called automatically by the \textit{ComponentHolder}, so no special care
+As with the \textit{ComponentHolder} the \textit{Component} has to implement an \textit{initialize()} method, in which
+all the setup should be done. This method is called automatically by the \textit{ComponentHolder}, so no special care
 has to be taken here.
 
-The \textit{load()}/\textit{save()} methodes are called by the \textit{ComponentHolder} and should
+The \textit{load()}/\textit{save()} methods are called by the \textit{ComponentHolder} and should
 implement loading and saving the components state into the given database. This should be done in a way, that the
 component does not relay on any other part of the code to correctly restore its state on loading.
 
-The \textit{get\_instance()} methode is a class methode, its purpose is to return an instance of the component, given data loaded
-from the YAML file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
-loaded from YAML as arguments to the class. For more sophisticated components this methode might need to be
+The \textit{get\_instance()} method is a class method, its purpose is to return an instance of the component, given data loaded
+from the yaml file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
+loaded from yaml as arguments to the class. For more sophisticated components this method might need to be
 reimplemented. An example of this is the \textit{StorageComponent}.
 
 Each component has to set the class's \textit{NAME} variable to unique string. Components that inherit from other
@@ -142,7 +142,7 @@ components can usually keep the name of the inherited class, as they are not use
 instance. Keeping the name the same, also ensures that if they implement similar functionality it is possible to call
 \textit{get\_component()} with the parent class, and still receiving the correct implementation. This is used for example
 for names. A \textit{NamedComponent} has been implemented. It handles giving names to objects. There are some special
-implenentations of this, for example the \textit{ShipNameComponent}, which uses special names designated for ships. If a
+implementations of this, for example the \textit{ShipNameComponent}, which uses special names designated for ships. If a
 \textit{ShipNameComponent} component is present in the \textit{ComponentHolder} class and get\_component{NamedComponent}
 is called, the \textit{ShipNameComponent} is returned, as they both use the same \textit{NAME} variable.
 
@@ -151,10 +151,10 @@ is called, the \textit{ShipNameComponent} is returned, as they both use the same
 \textit{DEPENDENCIES} class variable. It is a list of \textit{Component} classes. The classes specified will be
 initialized before the class that lists them as dependencies. 
 
-The basic dependency resolution is done by implementing the \textit{\_\_lt\_\_()} (less than) methode on the Component,
+The basic dependency resolution is done by implementing the \textit{\_\_lt\_\_()} (less than) method on the Component,
 so that a list of \textit{Components} can be sorted by dependency order. This is of course a very basic form of
-dependency resolution, which can't circlular dependencies, etc. It should be good enough for this purpose and is very
-simple and fast, as it uses python built-in \textit{sorted()} methode.
+dependency resolution, which can't detect circular dependencies, etc. It should be good enough for this purpose and is very
+simple and fast, as it uses python built-in \textit{sorted()} method.
 
 
 \subsection{Added Components}
@@ -200,9 +200,9 @@ This Component was introduced during the \textit{Google Summer of Code 2011} as 
 implementation.
 
 \paragraph{StorageComponent}
-The \textit{StorageComponent} provides the entity with a sort of invertory where it can store different resources. This
+The \textit{StorageComponent} provides the entity with a sort of inventory where it can store different resources. This
 is a fairly complex component, as it can use different storage implementations internally. For this reason this
-component has to implement its own \textit{get\_instance()} methode. An example markup for the \textit{StorageComponent}
+component has to implement its own \textit{get\_instance()} method. An example markup for the \textit{StorageComponent}
 using an inventory that can handle a fixed set of slots with specific sizes is given in \figref{storagyaml}.
 
 \begin{lstlisting}[language=python,caption=YAML representation of the StorageComponent using a SlotStorage,
@@ -220,7 +220,7 @@ resources from other players or the Free-Trader.
 \paragraph{Producer}
 This is most complex component in the game so far and I estimate it to stay this way, even if more components are added.
 It manages the production of goods in the game, but using production lines. Since this is a very complex system it is
-very bug-prone and extracting it into a single component and thereby removing it from the main hierarchie of buildings
+very bug-prone and extracting it into a single component and thereby removing it from the main hierarchy of buildings
 was not easy. The code depended heavily on other classes being in the inheritance tree and debugging this was very
 difficult and time-consuming.
 
