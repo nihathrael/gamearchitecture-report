@@ -247,6 +247,9 @@ label=produceryaml]
         time: 1
 \end{lstlisting}
 
+\subsection{Converting the SQLite data to YAML}
+% TODO
+
 \subsection{Testing}
 To ensure working code, three types of tests were used:
 \begin{enumerate}
@@ -310,14 +313,27 @@ It provides a purely component based system, making it the best designed of the 
 of research.
 
 \paragraph{Implementation}
-The first lesson learned from this project is that refactoring the entire code of \UH{} to component based system is a
-lot of work, that if persued further will require enourmous effort on the side of the developer team. Since it provides
+The first lesson learned from this project is that refactoring the entire code of \UH{} into a component based system is
+a lot of work, that if persued further will require an enourmous effort by the development team. Since it provides
 great benefits to the code-quality, as in less coupling and thus better testability, it is likely that more work in this
 area will be done.
 
-The implementation allows for an easier representation of entities outside the code, making it very interesting
-for content creators, as they can now change the game behaviour of entities in an easy way -- by just using a simple
-text-editor.
+Because of the amount of work this task requires, it was not possible to move the entire code to a
+component based system in the time of this project and only a few proof of concept components have been implemented.
 
+The implementation allows for an easier representation of entities outside the code, making it very interesting
+for content creators, as they can now change the behaviour of entities in the game in an easy way -- by just using a simple
+text-editor. This has been enabled by using the YAML markup language to represent and save entity data. Simple
+behavioural changes can be made by adding components to an entity and/or changing their attributes.
+
+The use of YAML for entity description does not only allow using components in an easy manner, but also the changing of
+data for entities, as this project involved moving most of the data from the main SQLite database into the YAML format.
+This again enables easier work for the content creator.
+
+I my opinion YAML is a better choice than \textit{XML}, because it is easier to read by humans and thus easier to handle
+for non-programmers. Because we already use YAML for scenarios, it also means not adding another dependency and not
+learning another markup language.
 
 \subsection{Methods}
+Performing the research as a case-study seems to be a good idea, as there is hardly any dedicated literature availabe on
+the topic of game architectures, specifically the area of entity description. 
