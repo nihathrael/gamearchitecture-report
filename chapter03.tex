@@ -1,5 +1,38 @@
 \section{State-Of-The-Art}
+In this section related work and literature on the topic is discussed.
 
 \subsection{Related Work}
+While there is some literature available on component based architectures, I am not aware of works that researched
+moving from an inheritance based approach to a component based approach on the same product. I think this is the first
+work describing the actual process. I am also not aware of any case studies of \OS{} real-time strategy game
+architectures and object representation.
 
 \subsection{Literature}
+A small number of papers and books on the topic is available:
+\begin{enumerate}
+    \item A Generic Framework for Game Development - \cite{Fh02ageneric}
+    \item Component Based Game Development – A Solution to Escalating Costs and Expanding Deadlines? - \cite{springerlink:10.1007/978-3-540-73551-95}
+    \item A Software Architecture for Games - \cite{Doherty_2003}
+    \item A flexible and expandable architecture for computer games - \cite{Plummer_2004}
+    \item Game engine architecture - \cite{Gregory.2009}
+    \item Game Architecture and Design: A New Edition - \cite{Rollings.2003}
+\end{enumerate}
+
+I found \citet{Fh02ageneric} particularly interesting, as it describes a system based only on components in great
+details. Haller not only explains the the use of components, but also gives a very detailed proposition on how to handle
+inter-component communication using a message system, such as used in the QT Gui Framework\footnote{QT website:
+\url{http://qt.nokia.com/}}.
+
+Components can be connected to each other using strictly typed in and outputs, making it possible to connect components
+using an external (graphical) tool, easily usable by non programmers.
+
+Most of the remaining literature embraces the use of components in a way or another, most don't go into any detail on
+how to implement things though. Also the definition of a component varies quite a bit: for this project a component is a
+single piece of code that contains small chunks of reusable code, but for some of the provided papers the word component
+is used in a more abstract way like "the AI component", the "rendering component". 
+
+\cite{Rollings.2003} emphazises the need for well thought-out interfaces between the components. So that for example a
+route finding library/class can easily be exchanged for another one. Thus avoiding tight coupleing between the high
+level components where possible.
+
+

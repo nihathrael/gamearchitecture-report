@@ -334,6 +334,32 @@ I my opinion YAML is a better choice than \textit{XML}, because it is easier to 
 for non-programmers. Because we already use YAML for scenarios, it also means not adding another dependency and not
 learning another markup language.
 
+\paragraph{Settler Class}
+To compare the old inheritance based class hierarchie, we compare the old UML tree given in \figref{fig:settleruml} with
+the new version given in \figref{fig:settleruml2}:
+
+\begin{figure}[!htb]
+\includegraphics[angle=90,scale=0.35]{pics/settler_umlv}
+\caption{Inheritance tree for the \textit{Settler} class in \UH{} after the addition of the componentholder}
+\label{fig:settleruml2}
+\end{figure}
+
+We removed the \textit{AmbientSound}, \textit{StorageHolder} and \textit{Producer} classes from the hierarchy, these are now used as components.
+Not all created components are used in the \textit{Settler} class, so not all work is visible in this UML tree. However
+it is clearly visible that the inheritance tree can be reduced in size by using components -- trimming it to a
+small size still requires considerable work, as stated previously.
+
+In my opinion especially the refactoring of the \textit{Producer} code into a \textit{Component} class brings great
+benefits. The production code has been regarded as some of the most complex code in \UH{}, it is now much easier to
+write tests for this part of the code, ensuring higher code quality on the long run.
+
 \subsection{Methods}
 Performing the research as a case-study seems to be a good idea, as there is hardly any dedicated literature availabe on
-the topic of game architectures, specifically the area of entity description. 
+the topic of game architectures, specifically the area of entity description. Comparing \UH{} to other \OS{} projects
+rather than commercial products makes sense, as, judging from experience, the man-power available matches a lot better than on commercial
+projects. \OS{} projects usually don't have the time to create suffisticated tools, therefore it is crucial to rely on
+simple methods for content creation.
+
+The implementation created in this project can serve as a solid foundation for further work on the area of a component
+based architecture. I believe that researching other projects first and then using the results gained from this study as
+foundation lead to a nice solution for the scope of the \UH{} code base.
