@@ -248,7 +248,20 @@ label=produceryaml]
 \end{lstlisting}
 
 \subsection{Converting the SQLite data to YAML}
-% TODO
+Two methodes were used when converting the SQLite data to YAML data: 
+\begin{itemize}
+    \item manual conversian
+    \item converter script implemented in Python
+\end{itemize}
+The reason I used manual conversion is that \UH{} contains only very few units, for which a conversion script would not
+have paid of in terms of total used time. I used the existing "print\_db\_data.py" to output relevant information to the
+console and copied data straight from the SQLite file to create the new unit YAML definitions.
+
+As there are over 40 building in \UH{} with many attributes, a different approach had to be taken. For this reason a
+helper scipt was implemented in Python, which automatically converted the entire list of buildings into YAML building
+definitions. This has the added benifit of avoiding syntax errors, as I let the YAML parser write the file instead of
+writing it by hand. It also allowed testing different formats for the data, to find the best suited format. The
+converter script is available in \textit{development/convert\_db\_to\_yaml.py}.
 
 \subsection{Testing}
 To ensure working code, three types of tests were used:

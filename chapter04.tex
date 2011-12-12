@@ -80,9 +80,10 @@ resources. The building has been implemented for over a year now and the team is
 or not, as it required huge modifications to the production classes to be able to produce units instead of resources.
 
 \subsubsection{RQ4}
-There are no tools available to help with the addition/edition of content at this point. A map editor is planned for
-future versions, but it is not yet in a working state.
-
+There are no tools available to help with the addition/edition of content at this point. A map editor is being worked on
+by two students of the \textit{Technische Universität München} in Germany. It will be available in future versions, but
+it is not yet in a working state. Work is being done on the "\textit{editor}" branch of the official \UH{} git
+repository\footnote{Link to the editor branch: \url{https://github.com/unknown-horizons/unknown-horizons/tree/editor}}.
 
 \subsection{Battle for Wesnoth}
 \BOW{} as described on the project's website:
@@ -356,6 +357,8 @@ a set of components tied to an ID, there are no base classes for units or buildi
 components. The engine allows scripting the components in lua to ease development, but provides the possibility to
 easily port components to c++, should speed be a problem. Components written in lua can be hotloaded during the run-time
 of the game, making it easy to debug and work on single parts of the game and directly seeing the impact on the game.
+The implementation of \AD{} is very similar to the system described in \cite{Fh02ageneric}, but it doesn't use the
+enhanced component in and output system. Instead it uses the QT like described version of messages between components.
 
 \section{Transferring the Results to \UH{}}
 Looking at the ease of content creation of \BOW{}, \GLEST{} and \AD{} it becomes clear that \UH{} is not nearly as
