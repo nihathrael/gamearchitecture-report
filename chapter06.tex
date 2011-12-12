@@ -6,5 +6,21 @@ In this section I present a conclusion of this project and the future work that 
 
 
 \subsection{Future Work}
+On the research level it would be interesting to compare commercial games to the \OS{} systems described in this
+report. It could provide a lot of insight of how far industry standards in gaming have made their way into the \OS{}
+gaming world.
 
+There is a lot of work remaining to finish the conversion from an inheritance based approach to the new component based
+architecture. Many components have to be created, thus minimizing the hierarchy. A lot of time should be allocated for
+this task, as even creating one component can take days of debugging and fixing to make the code run again. Because of
+the tight coupling of the current code-base and the dynamic nature of Python refactoring is not easy and requires
+thorough testing afterwords.
+
+In order to ensure easy testing of newly created components the current collection of unit and systemtests should be
+extended, to cover greater areas of the code. Especially system tests help with the refactoring as they test the
+coordination between the components, which is likely to break when refactoring the code.
+
+Currently the code uses a changelistener approach for class communication and to signal events. It could be an
+interesting project to redesign this system and port it to a message based system, as described in \cite{Fh02ageneric}.
+This could provide even looser coupling, making the component system more effective at modularizing the code-base.
 
