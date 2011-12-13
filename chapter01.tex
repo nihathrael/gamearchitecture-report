@@ -10,7 +10,7 @@ designers and many more around the globe. The first revision was committed in la
 
 As the project evolved the game's code architecture grew dynamically, without much planned structure or
 designed architecture. This resulted in a very tight coupling between the different components inside the game, making
-it difficult to add/change certain functionalities in the game. This became clear when adding the boat builder building
+it difficult to add/change certain functionality in the game. This became clear when adding the boat builder building
 a while back, which resulted in months of fixing introduced bugs.
 
 \UH{} uses the outdated idea of making use of multiple inheritance to compose its in-game objects. Besides introducing
@@ -19,19 +19,23 @@ assets to the game. For an \OS{} project this is clearly not ideal, as user cont
 project and save valuable programming time.
 
 The idea for this project is to research how this problem is solved in similar \OS{} games and to transfer the results to
-the \UH{} source-code. The following games have been chosen to be researched:
+the \UH{} source-code. 
+
+\pagebreak
+
+The following games have been chosen to be researched:
 \begin{itemize}
     \item \BOW{}\footnote{Battle of Wesnoth website: \url{http://www.wesnoth.org}}
     \item \AD{}\footnote{0 A.D. website: \url{http://wildfiregames.com/0ad/}}
     \item \GLEST{}\footnote{Glest website: \url{http://megaglest.org/}}
 \end{itemize}
 
-
 \subsection{Problem Statement}
-Two main questions should be answered by this project:
+Three main questions should be answered by this project:
 \begin{itemize}
     \item Which architecture do \OS{} games similar to \UH{} use to model their in-game objects?
     \item Can users add objects without modifying the game's code and if yes -- how?
+    \item Can the \UH{} code-base be ported to a component-based architecture?
 \end{itemize}
 
 \subsection{Project Context}

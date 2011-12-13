@@ -1,5 +1,6 @@
+\pagebreak
 \section{Own Contribution}
-In this section we present four different case studies to answer our research questions. We begin with presenting
+In this section I present four different case studies to answer our research questions.I begin with presenting
 \UH{} as it is the project which focus our efforts of improvement on. It is followed by \BOW{}, \GLEST{} and \AD{}.
 The results are then evaluated and transferred to \UH{}.
 
@@ -13,7 +14,7 @@ The results are then evaluated and transferred to \UH{}.
 \end{quote}
 
 \subsubsection{RQ1}
-\UH{} uses a largely inheritance based approach to describe ingame objects. As the game is programmed using
+\UH{} uses a largely inheritance based approach to describe in-game objects. As the game is programmed using
 the Python\footnote{Python website: \url{http://www.python.org}} programming language it is possible to use multiple
 inheritance. The project makes great use of this ability, resulting in large inheritance trees. To illustrate this we
 have generated an inheritance diagram for the \textit{Settler} class in \figref{fig:settleruml}. 
@@ -36,26 +37,26 @@ The \textit{Settler} class is comprised of 4 basic classes: \textit{BasicBuildin
 \textit{BasicBuilding} is a base class for every building, it loads graphics and provides
 basic information like the name, position, owner and functionality for running costs and level upgrades.
 
-\textit{SelectableBuilding} is a decorating class, that implements functions for selecting the building ingame. It
-manages showing ingame menus and outlines. If a building is not supposed to be selectable, this class should not be
+\textit{SelectableBuilding} is a decorating class, that implements functions for selecting the building in-game. It
+manages showing in-game menus and outlines. If a building is not supposed to be selectable, this class should not be
 inherited.
 
 \textit{BuildableSingle} is a decorating class which is used when building new buildings. It tells the game that it can
 only be built as single instance, so there is no building of multiple instances at once. For this purpose the code
 provides the \textit{BuildableLine}, \textit{BuildableRect}, etc. classes which can be used if needed.
 
-\textit{CollectingProducerBuilding} is a collectiv class to make the Settler have collecting units which pick up
+\textit{CollectingProducerBuilding} is a collective class to make the Settler have collecting units which pick up
 resources for usage and then produce something out of them. This is easier to demonstrate on a \textit{Lumberjack} for
 example, he picks up trees and produces planks from it. The Settler consumes resources (food, textiles, etc.) and in
 turn produces the abstract resource happiness.
 
-\paragraph{Datadriven?}
+\paragraph{Data-driven?}
 \UH{} uses a SQLite\footnote{SQLite website: \url{http://www.sqlite.org/}} database to save parts of the object's
 attributes. For example the size, health and name are saved in the database. This is necessary to make the higher level
-classes in the architecture reusable for subclasses. All buildings have a size, but it may be different from building
-type to building type. It is saved to an external file to make it easily editable by non programmers.
+classes in the architecture reusable for sub-classes. All buildings have a size, but it may be different from building
+type to building type. It is saved to an external file to make it easily editable by non-programmers.
 
-In summary we can say that the objects are partly datadriven, but usually it is not possible to add new buildings
+In summary I can say that the objects are partly data-driven, but usually it is not possible to add new buildings
 without writing new code.
 
 \subsubsection{RQ2}
@@ -68,7 +69,7 @@ For example to create a settlement wall one could use the classes \textit{Builda
 is very limited. All attributes of this building can then be added in the database by using any SQLite database manager.
 
 \subsubsection{RQ3}
-Modifying existing ingame objects in \UH{} can be easy and very difficult. This depends on the degree of
+Modifying existing in-game objects in \UH{} can be easy and very difficult. This depends on the degree of
 change that is to be made. If only basic attributes like health, production time or similar are to be changed, then it
 can easily be done by someone who knows their way around the database. If however new functionality is required, for
 example an building which previously did not collect resources needs to collect resources, a change in the games code is
@@ -76,11 +77,11 @@ most certainly required. Again sometimes if the functionality exists, this can b
 the hierarchy of the building or it can be very difficult if new functionality in the existing classes is required.
 
 A good example for this is the boat builder, which is mainly a \textit{CollectingBuilding} producing units instead of
-resources. The building has been implemented for over a year now and the team is still not certain if it works bugfree
+resources. The building has been implemented for over a year now and the team is still not certain if it works bug free
 or not, as it required huge modifications to the production classes to be able to produce units instead of resources.
 
 \subsubsection{RQ4}
-There are no tools available to help with the addition/edition of content at this point. A map editor is being worked on
+There are no tools available to help with the addition/editing of content at this point. A map editor is being worked on
 by two students of the \textit{Technische Universität München} in Germany. It will be available in future versions, but
 it is not yet in a working state. Work is being done on the "\textit{editor}" branch of the official \UH{} git
 repository\footnote{Link to the editor branch: \url{https://github.com/unknown-horizons/unknown-horizons/tree/editor}}.
@@ -98,32 +99,33 @@ hand in any number of other adventures... }
 
 \subsubsection{RQ1}
 \BOW{} comes with its own markup language, \textit{WesnothMarkupLanguage} - \textit{WML}, to describe units, campaigns, AIs,
-missions, maps, sounds, etc. \textit{WML} is similar to other markup languages like \textit{XML}, but more human readable and provides
-some basic functions to create logic - like basic if-clauses and variables. 
+missions, maps, sounds, etc. \textit{WML} is similar to other markup languages like \textit{XML}, but more human readable and provides some basic functions to create logic - like basic if-clauses and variables. 
+
 Entities are described in a component like way, not all clauses are components though. For most clauses like skills,
 attacks and races components are used in code. Other attributes such as \textit{[portrait]} are not mapped to their own
 component, but are just read as data for the basic unit class. 
+
 \BOW{} parses all the tags in a config file into the config class where the single tags can be easily accessed by code.
 The actual use of the tags is left to the code using the config. Classes like unit and race read values from the config
 class.
 
-To ease development it is also possible to access many internals using a lua API. This is used for reading in
-tags for maps and units. According to the development team the lua API can be used for modding as well, this behavior
-is not documented anywhere though \footnote{IRC logs regarding lua API: \url{http://www.wesnoth.org/irclogs/2011/12/\%23wesnoth-dev.2011-12-08.log}}.
+To ease development it is also possible to access many internals using a LUA API. This is used for reading in
+tags for maps and units. According to the development team the LUA API can be used for modding as well, this behavior
+is not documented anywhere though \footnote{IRC logs regarding LUA API: \url{http://www.wesnoth.org/irclogs/2011/12/\%23wesnoth-dev.2011-12-08.log}}.
 
-\paragraph{Datadriven?}
-As all game content is described using \textit{WML}, \BOW{} can be sean as completely datadriven. Wesnoth contains an in-game option
+\paragraph{Data-driven?}
+As all game content is described using \textit{WML}, \BOW{} can be seen as completely data-driven. Wesnoth contains an in-game option
 to download other mods, containing new units, campaigns, etc. Within the concept of a round based strategy game the
 engine completely independent of the content.
 
 \subsubsection{RQ2}
-New objects are added to the game by adding a new file containg basic \textit{WML} with the description of the unit.
+New objects are added to the game by adding a new file containing basic \textit{WML} with the description of the unit.
 Since the game is fully moddable all units, maps and campaigns can be replaced just by editing and adding new files into
 the basic directory structure \cite{wesnothaddunit}.
 
-In order to add new \textit{WML} attributes, the c++ sourcecode has to be changed to recognize them. The \BOW{} parser
+In order to add new \textit{WML} attributes, the c++ source-code has to be changed to recognize them. The \BOW{} parser
 does not know anything about the tags it loads, therefore the only constraint is that the new tag should be used/accessed
-in another c++ class, like the unit class, or lua helper code.
+in another c++ class, like the unit class, or LUA helper code.
 
 \begin{lstlisting}[language=XML,caption=A basic (shortened) \BOW{} unit definition in WML, label=wesnothwml]
 [unit_type]
@@ -156,10 +158,10 @@ in another c++ class, like the unit class, or lua helper code.
 
 \subsubsection{RQ3}
 To edit a unit in \BOW{} the \textit{WML} files have to be changed, nothing else has to be done. In order to change the
-units behaviour the c++ code has to be edited.
+units behavior the c++ code has to be edited.
 
 \subsubsection{RQ4}
-\BOW{} comes with a set of tools to help developers and content creators. Wenoth comes with a  map editor, tools to
+\BOW{} comes with a set of tools to help developers and content creators. Wesnoth comes with a  map editor, tools to
 validate user created \textit{WML} and provides an \textit{Eclipse}\footnote{Eclipse Project Homepage:
 \url{http://www.eclipse.org}} plug-in, called \textit{"The Battle for Wesnoth UMC Development IDE"}\footnote{UMC Plugin
 Website: \url{http://eclipse.wesnoth.org/}}.
@@ -192,9 +194,9 @@ data can be downloaded from within the game at no cost.}
 \subsubsection{RQ1}
 \GLEST{} uses a mixture of inheritance and component-based object description. Basic things are set using
 inheritance, for example the \textit{UnitType} class inherits from the \textit{ProducibleType} class, as every unit in
-the game is producable. More advanced things are added to the unit as components, for example the \textit{UnitType} has
+the game is producible. More advanced things are added to the unit as components, for example the \textit{UnitType} has
 \textit{Level},\textit{SkillType}, \textit{Resource}, \textit{CommandType} and \textit{UnitParticleSystemType}
-components. Units themselves are part of a bigger compontent hierarchy: Units are part of a \textit{FactionType}, which
+components. Units themselves are part of a bigger component hierarchy: Units are part of a \textit{FactionType}, which
 is part of a \textit{TechTree}. See \figref{fig:glestclassh} for a detailed structure analysis. A class ending in
 \textit{*Type} is used to represent prototypes for the actual instance classes. For example the \textit{UnitType} class loads all
 necessary data from the XML definitions. In-game a \textit{Unit} instance is used, which itself contains a
@@ -207,8 +209,8 @@ necessary data from the XML definitions. In-game a \textit{Unit} instance is use
     \label{fig:glestclassh}
 \end{figure}
 
-\paragraph{Datadriven?}
-\GLEST{} is fully datadriven. All information needed for in-game objects, scenarios and campaigns is stored in XML files.
+\paragraph{Data-driven?}
+\GLEST{} is fully data-driven. All information needed for in-game objects, scenarios and campaigns is stored in XML files.
 This makes \GLEST{} more of a game engine with a focus on real-time strategy than only a game. Several\footnote{List of
 some mods: \url{http://www.moddb.com/games/megaglest/mods}} mods exist, proving that it is indeed possible to create new
 games using \GLEST{} as a game engine. 
@@ -283,20 +285,20 @@ XML based format, making up single units of many components. The engine provides
 \textit{Cost}, \textit{Position} or \textit{VisualActor}. See \citet[Entity Component Documenation]{0adcomponents} for a
 complete list and details. 
 
-It is possible to implement components in c++ and javascript. The general idea is to use
-javascript where possible and only use c++ if necessary for performance or communication with the game engine, for
+It is possible to implement components in c++ and JavaScript. The general idea is to use
+JavaScript where possible and only use c++ if necessary for performance or communication with the game engine, for
 instance for rendering. The components communicate with each other using a message based system or calling methods on
 other components directly. The first approach is to be preferred, as the implementations remain separated from each other
 this way. A component can send messages directly to a specific component type, or broadcast it to everything listening to
 the specific message. A entity in the game is basically a number associated with a set of components. There is no
 inheritance involved in creating an entity, other than inside a single component.
 
-The engine allows to \textit{hotload} components implemented in javascript, meaning changes in the javascript files will
+The engine allows to \textit{hot-load} components implemented in JavaScript, meaning changes in the JavaScript files will
 be detected while the game is running and loaded into the engine. This enables the developer to make changes to the
-components behaviour while the game is running and directly seeing his results in-game.
+components behavior while the game is running and directly seeing his results in-game.
 
-\paragraph{Datadriven?}
-\AD{} is completely datadriven. All information needed to construct a unit is saved in the basic XML format.
+\paragraph{Data-driven?}
+\AD{} is completely data-driven. All information needed to construct a unit is saved in the basic XML format.
 The XML format is specified by the components directly, making it easy to extend the markup language by new components.
 As the game logic is implemented using these external components, it is easy to exchange the complete gameplay logic,
 thus enabling very wide modding support and separating the game-play logic from the main engine.
@@ -339,25 +341,25 @@ pages \cite{0adeditor}.
 Tool support for editing unit entity descriptions is not provided.
 
 \subsection{Evaluation}
-All four games provide datadriven approaches in varying degree.
+All four games provide data-driven approaches in varying degree.
 
 \UH{} provides an SQLite driven approach, which usually requires editing some code to add new entities to the game. The
 code is made up of huge inheritance trees, making it difficult to change the code or add new features. Storing the data
-in an SQLite database makes it more difficult for contributers to change values, as they first have to learn how to use
+in an SQLite database makes it more difficult for contributors to change values, as they first have to learn how to use
 an SQLite browser and understand how databases work. The plus side for this is, that relational queries are very fast.
 
 \BOW{} and \GLEST{} allow the addition of units using basic markup languages like \textit{WML} and \textit{XML}. \BOW{}
-provides basic means for scripting events and behavior using the \textit{WML} and possibly the lua extension. Both
+provides basic means for scripting events and behavior using the \textit{WML} and possibly the LUA extension. Both
 games use basic classes to which the data stored in the entity files is mapped, changing fundamental things about the
 way the game behaves requires work on the code. Both games have separated the concerns by using a component similar
 approach, making editing the source code easier than in \UH{}.
 
 \AD{} is the only game in this study that uses a purely component based system. An entity in the game is represented by
 a set of components tied to an ID, there are no base classes for units or buildings. They are entirely made up of
-components. The engine allows scripting the components in lua to ease development, but provides the possibility to
-easily port components to c++, should speed be a problem. Components written in lua can be hotloaded during the run-time
+components. The engine allows scripting the components in JavaScript to ease development, but provides the possibility to
+easily port components to c++, should speed be a problem. Components written in JavaScript can be hot-loaded during the run-time
 of the game, making it easy to debug and work on single parts of the game and directly seeing the impact on the game.
-The implementation of \AD{} is very similar to the system described in \cite{Fh02ageneric}, but it doesn't use the
+The implementation of \AD{} is very similar to the system described in \cite{Fh02ageneric}, but it does not use the
 enhanced component in and output system. Instead it uses the QT like described version of messages between components.
 
 \section{Transferring the Results to \UH{}}
@@ -367,7 +369,7 @@ possible to transfer the design completely to \UH{}.
 
 As the current code is not a component driven design, it is very difficult to convert the entire code structure to a
 component based architecture in one big refactoring. Therefore a middle ground has to be found here, where the code can
-be refactored and changed to components in small parts. The difference between c++ and lua components is not suitable
+be refactored and changed to components in small parts. The difference between c++ and JavaScript components is not suitable
 for \UH{} as it is written entirely in Python, so there is no possibility to differentiate between compiled and scripted
 components.
 

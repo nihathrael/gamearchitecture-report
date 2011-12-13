@@ -2,7 +2,33 @@
 In this section I present a conclusion of this project and the future work that can follow it.
 
 \subsection{Conclusion}
+I set of with the goal of introducing a component based architecture into the \UH{} code-base. In order to complete the
+task properly, I first looked at the few existing literature on the topic and conducted a case study on the four \OS{}
+games \UH{} (to see where I am at), \BOW{}, \GLEST{} and \AD{}.
 
+I found out that \UH{} does not have a component based system in-place yet, only a small start in terms of a
+\textit{HealthComponent} and a \textit{StanceComponent} was made during the last \textit{Google Summer of Code}. I
+examined an example class hierarchy to understand that the hierarchy is big with 16 involved classes and multiple
+inheritance.
+
+\BOW{} and \GLEST{} provide a semi-component based system. Objects are described using an extensible markup language
+(WML and XML), making it easy for content contributors to add value to the game. Code wise both games don't follow a
+pure component based architecture, but also use some form of inheritance.
+
+\AD{} uses a purely component based architecture, representing an entity in code as an unique identifier to which a set
+of components is mapped. It provides a powerful architecture which allows the developer to implement components in c++
+or LUA, depending on the need for speed or simplicity. It also allows the exchange of all the LUA components in the form
+of a mod, making the core c++ code more a game engine than base code for \AD{} specifically.
+
+Based on this knowledge I designed a component system for \UH{} that can gradually be introduced into the existing
+code-base. For this reason it is not as pure as the approach used in \AD{}, but it provides a lot more flexibility in
+porting the existing code to the new system in small steps.
+
+While implementing some basic components I quickly realized that porting the entire code base to such a new system in
+one step would
+be impossible. This work presents a solid foundation for further work on this topic, which I am planning to do in the
+next months. It will help \UH{} become more content contributor and game-design friendly as it allows editing units and
+buildings by editing simple to read and edit YAML files instead of editing SQLite databases.
 
 
 \subsection{Future Work}
@@ -16,7 +42,7 @@ this task, as even creating one component can take days of debugging and fixing 
 the tight coupling of the current code-base and the dynamic nature of Python refactoring is not easy and requires
 thorough testing afterwords.
 
-In order to ensure easy testing of newly created components the current collection of unit and systemtests should be
+In order to ensure easy testing of newly created components the current collection of unit and system-tests should be
 extended, to cover greater areas of the code. Especially system tests help with the refactoring as they test the
 coordination between the components, which is likely to break when refactoring the code.
 

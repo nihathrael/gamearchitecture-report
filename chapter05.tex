@@ -11,13 +11,13 @@ creating a design that can be implemented in smaller steps and is compatible wit
 
 \subsubsection{Data}
 A major flaw in the current \UH{} way of storing the game data is that all the game data is stored in SQLite databases,
-which are difficult to edit for non-programmers. As most content contributers are not programmers, this is a major
+which are difficult to edit for non-programmers. As most content contributors are not programmers, this is a major
 concern. I will therefore move the data to a file based storage system, which is easily human read- and editable.
 
 \subsubsection{Code}
-To ensure compatibilty with the old inheritance based code, I will use a \textit{ComponentHolder} class, which manages all the
+To ensure compatibility with the old inheritance based code, I will use a \textit{ComponentHolder} class, which manages all the
 components an object has. This class can be included into any inheritance tree and thereby extending the current code
-with the possibility of containing components. By using this approach I can slowely extract single classes from the code
+with the possibility of containing components. By using this approach I can slowly extract single classes from the code
 and move them into components.
 
 A component should be class to handle a specific task only and should be as independent
@@ -31,8 +31,8 @@ to ensure they are loosely coupled and easy to test.
 \subsection{Implementation}
 In this section I will discuss the details of the implementation.
 
-\subsubsection{Dataformat}
-\UH{} already uses YAML\footnote{YAML website: \url{http://www.yaml.org/}} to describe scenarios and campaigns. The
+\subsubsection{Data Format}
+\UH{} already uses YAML\footnote{YAML website: \url{http://www.YAML.org/}} to describe scenarios and campaigns. The
 reason to choose YAML at the time was, that it is very easy to read and edit by humans. This comes at the cost of being
 a little slower when parsing. As most data can be cached and has to be loaded from disc only once, this is not a major
 concern.
@@ -88,7 +88,7 @@ Since the data from the YAML file is only read once during type creation, we eff
 type instance for later use.
 
 \subsubsection{Code Layout}
-To achive easy compatibilty with the old inheritance based approach, a \textit{ComponentHolder} class has been
+To achieve easy compatibility with the old inheritance based approach, a \textit{ComponentHolder} class has been
 introduced, that manages a set of components. This class can be included into the normal hierarchy of any in-game object.
 
 \paragraph{ComponentHolder}
@@ -122,7 +122,7 @@ Each \textit{Component} has to implement the basic interface:
     \item initialize()
     \item load()/save()
     \item remove()
-    \item get\_instance() - Classmethode
+    \item get\_instance() - classmethod
 \end{itemize}
 As with the \textit{ComponentHolder} the \textit{Component} has to implement an \textit{initialize()} method, in which
 all the setup should be done. This method is called automatically by the \textit{ComponentHolder}, so no special care
@@ -133,9 +133,9 @@ implement loading and saving the components state into the given database. This 
 component does not relay on any other part of the code to correctly restore its state on loading.
 
 The \textit{get\_instance()} method is a class method, its purpose is to return an instance of the component, given data loaded
-from the yaml file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
-loaded from yaml as arguments to the class. For more sophisticated components this method might need to be
-reimplemented. An example of this is the \textit{StorageComponent}.
+from the YAML file. For basic components the basic implementation is likely to suffice, it will pass in the dict of data
+loaded from YAML as arguments to the class. For more sophisticated components this method might need to be
+re-implemented. An example of this is the \textit{StorageComponent}.
 
 Each component has to set the class's \textit{NAME} variable to unique string. Components that inherit from other
 components can usually keep the name of the inherited class, as they are not used in the same \textit{ComponentHolder}
@@ -158,13 +158,13 @@ simple and fast, as it uses python built-in \textit{sorted()} method.
 
 
 \subsection{Added Components}
-Since the scope of the project is not big enough turn the \UH{} codebase into a completely component driven
+Since the scope of the project is not big enough turn the \UH{} code-base into a completely component driven
 architecture, only parts of the classes have been converted to \textit{Component}s yet. The following \textit{Component}
 implementations have been made:
 \begin{itemize}
     \item AmbientSoundComponent
     \item HealthComponent
-    \item NamedComponent + Subclasses
+    \item NamedComponent + Sub-classes
     \item StanceComponent
     \item StorageComponent
     \item TradePostComponent
@@ -185,8 +185,8 @@ did not make major changes to this component, other than fitting it into the new
 Its purpose is to provide a health counter for objects and handle everything that is connected with this, like drawing
 life-bars.
 
-\paragraph{NamedComponent + Subclasses}
-The \textit{NamedComponent} provides unique names for an object throughout one game. For this class several subclasses
+\paragraph{NamedComponent + Sub-classes}
+The \textit{NamedComponent} provides unique names for an object throughout one game. For this class several sub classes
 exist, that provide different names. Namely these are:
 \begin{itemize}
     \item \textit{ShipNameComponent}
@@ -195,7 +195,7 @@ exist, that provide different names. Namely these are:
 \end{itemize}
 
 \paragraph{StanceComponent}
-The \textit{StanceComponent} is used to set the combat stance of the object. It can be aggresive, defensive or neutral.
+The \textit{StanceComponent} is used to set the combat stance of the object. It can be aggressive, defensive or neutral.
 This Component was introduced during the \textit{Google Summer of Code 2011} as part of the combat system
 implementation.
 
@@ -248,9 +248,9 @@ label=produceryaml]
 \end{lstlisting}
 
 \subsection{Converting the SQLite data to YAML}
-Two methodes were used when converting the SQLite data to YAML data: 
+Two methods were used when converting the SQLite data to YAML data: 
 \begin{itemize}
-    \item manual conversian
+    \item manual conversion
     \item converter script implemented in Python
 \end{itemize}
 The reason I used manual conversion is that \UH{} contains only very few units, for which a conversion script would not
@@ -258,10 +258,10 @@ have paid of in terms of total used time. I used the existing "print\_db\_data.p
 console and copied data straight from the SQLite file to create the new unit YAML definitions.
 
 As there are over 40 building in \UH{} with many attributes, a different approach had to be taken. For this reason a
-helper scipt was implemented in Python, which automatically converted the entire list of buildings into YAML building
-definitions. This has the added benifit of avoiding syntax errors, as I let the YAML parser write the file instead of
+helper script was implemented in Python, which automatically converted the entire list of buildings into YAML building
+definitions. This has the added benefit of avoiding syntax errors, as I let the YAML parser write the file instead of
 writing it by hand. It also allowed testing different formats for the data, to find the best suited format. The
-converter script is available in \textit{development/convert\_db\_to\_yaml.py}.
+converter script is available in \textit{development/convert\_db\_to\_YAML.py}.
 
 \subsection{Testing}
 To ensure working code, three types of tests were used:
@@ -285,8 +285,8 @@ fails \cite{Mcconnell:1996:DBS:624614.625626}.
 
 To emulate this, I used our artificial intelligence player. I started the game on 20 times the normal speed and
 let 3 AI players play for a while. This helped me find a lot of bugs, especially in the beginning. As python is not
-strictly typed, the interpreter discovers a lot of bugs, like missing attributes, only at runtime. Therefore it is
-crucial to acutally run as much game code as possible.
+strictly typed, the interpreter discovers a lot of bugs, like missing attributes, only at run-time. Therefore it is
+crucial to actually run as much game code as possible.
 
 \section{Evaluation}
 In this section I will evaluate the project and the result.
@@ -304,7 +304,7 @@ The plans for the implementation were worked on and discussed with the \UH{} tea
 weekly meetings\footnote{Meeting logs:
 \url{http://meetings.christoph-egger.org/unknown-horizons/2011/unknown-horizons.2011-10-16-17.02.html}}\footnote{Meeting
 logs 2: \url{http://meetings.christoph-egger.org/unknown-horizons/2011/unknown-horizons.2011-12-04-17.04.html}}. This
-allowed me to identify weeknesses in my design and ensure that I have the same ideas, of how it should look, as the rest
+allowed me to identify weaknesses in my design and ensure that I have the same ideas, of how it should look, as the rest
 of the team.
 
 \subsection{Results}
@@ -316,7 +316,7 @@ This project provides two main results:
 
 \paragraph{Case Study}
 In the case study I have explained how the four project \UH{}, \BOW{}, \GLEST{} and \AD{} represent their objects as
-in dataformat as well as in code. It provides insight for new projects on how a component based system can be designed
+in data format as well as in code. It provides insight for new projects on how a component based system can be designed
 and on the quality of code-architecture in \OS{} games.
 
 While the last part has not been explicitly discussed, it is clear that some thought on how to design these systems is
@@ -327,7 +327,7 @@ of research.
 
 \paragraph{Implementation}
 The first lesson learned from this project is that refactoring the entire code of \UH{} into a component based system is
-a lot of work, that if persued further will require an enourmous effort by the development team. Since it provides
+a lot of work, that if pursued further will require an enormous effort by the development team. Since it provides
 great benefits to the code-quality, as in less coupling and thus better testability, it is likely that more work in this
 area will be done.
 
@@ -335,9 +335,9 @@ Because of the amount of work this task requires, it was not possible to move th
 component based system in the time of this project and only a few proof of concept components have been implemented.
 
 The implementation allows for an easier representation of entities outside the code, making it very interesting
-for content creators, as they can now change the behaviour of entities in the game in an easy way -- by just using a simple
+for content creators, as they can now change the behavior of entities in the game in an easy way -- by just using a simple
 text-editor. This has been enabled by using the YAML markup language to represent and save entity data. Simple
-behavioural changes can be made by adding components to an entity and/or changing their attributes.
+behavioral changes can be made by adding components to an entity and/or changing their attributes.
 
 The use of YAML for entity description does not only allow using components in an easy manner, but also the changing of
 data for entities, as this project involved moving most of the data from the main SQLite database into the YAML format.
@@ -348,12 +348,12 @@ for non-programmers. Because we already use YAML for scenarios, it also means no
 learning another markup language.
 
 \paragraph{Settler Class}
-To compare the old inheritance based class hierarchie, we compare the old UML tree given in \figref{fig:settleruml} with
+To compare the old inheritance based class hierarchy, we compare the old UML tree given in \figref{fig:settleruml} with
 the new version given in \figref{fig:settleruml2}:
 
 \begin{figure}[!htb]
 \includegraphics[angle=90,scale=0.35]{pics/settler_umlv}
-\caption{Inheritance tree for the \textit{Settler} class in \UH{} after the addition of the componentholder}
+\caption{Inheritance tree for the \textit{Settler} class in \UH{} after the addition of the ComponentHolder}
 \label{fig:settleruml2}
 \end{figure}
 
@@ -367,10 +367,10 @@ benefits. The production code has been regarded as some of the most complex code
 write tests for this part of the code, ensuring higher code quality on the long run.
 
 \subsection{Methods}
-Performing the research as a case-study seems to be a good idea, as there is hardly any dedicated literature availabe on
+Performing the research as a case-study seems to be a good idea, as there is hardly any dedicated literature available on
 the topic of game architectures, specifically the area of entity description. Comparing \UH{} to other \OS{} projects
 rather than commercial products makes sense, as, judging from experience, the man-power available matches a lot better than on commercial
-projects. \OS{} projects usually don't have the time to create suffisticated tools, therefore it is crucial to rely on
+projects. \OS{} projects usually don't have the time to create sophisticated tools, therefore it is crucial to rely on
 simple methods for content creation.
 
 The implementation created in this project can serve as a solid foundation for further work on the area of a component
