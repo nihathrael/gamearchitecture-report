@@ -56,7 +56,7 @@ to ensure they are loosely coupled and easy to test.
 In this section I will discuss the details of the implementation.
 
 \subsubsection{Data Format}
-I decided to use YAML for the object description files, the requirements match and it avoids adding another
+I decided to use YAML for the object description files as it satisfies the requirements and it avoids adding another
 dependency to the project -- which was a \textit{nice-to-have} requirement (\secref{requirements}). The result of converting most of the data in the database to a YAML based file for each
 object looks similar as \listref{uhyaml}. It contains all basic information needed for every building and a list of components
 that are used by this specific building. As the conversion from an inheritance based approach to a component based
@@ -164,7 +164,7 @@ initialized before the class that lists them as dependencies.
 
 The basic dependency resolution is done by implementing the \textit{\_\_lt\_\_()} (less than) method on the Component,
 so that a list of \textit{Components} can be sorted by dependency order. This is of course a very basic form of
-dependency resolution, which can't detect circular dependencies, etc. It should be good enough for this purpose and is very
+dependency resolution, which cannot detect circular dependencies, etc. It should be good enough for this purpose and is very
 simple and fast, as it uses python built-in \textit{sorted()} method.
 
 \paragraph{Implementation Overview}
