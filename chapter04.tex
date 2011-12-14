@@ -4,14 +4,8 @@ In this section I present four different case studies to answer our research que
 The results are then evaluated and transferred to \UH{}.
 
 \subsection{Unknown Horizons}
-\UH{} as described on the project website:
-\begin{quote}
-
-\begin{center}\includegraphics[scale=0.2]{pics/uhlogo}\end{center}
-\textit{"\UH{} is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement
-to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with
-a well balanced economy and with strategic trade and diplomacy."} -- from \url{http://www.unknown-horizons.org}
-\end{quote}
+\UH{} is the project I want to work on and improve, so as a first step I answer all the research questions for it, in
+order to get an overview of the current state.
 
 \subsubsection{RQ1}
 \UH{} uses a largely inheritance based approach to describe in-game objects. As the game is programmed using
@@ -87,15 +81,7 @@ it is not yet in a working state. Work is being done on the "\textit{editor}" br
 repository\footnote{Link to the editor branch: \url{https://github.com/unknown-horizons/unknown-horizons/tree/editor}}.
 
 \subsection{Battle for Wesnoth}
-\BOW{} as described on the project's website:
-\begin{quote}
-
-\begin{center}\includegraphics[scale=0.4]{pics/wesnothlogo}\end{center}
-
-\textit{"The Battle for Wesnoth is a Free, turn-based tactical strategy game with a high fantasy theme, featuring both
-single-player, and online/hotseat multiplayer combat. Fight a desperate battle to reclaim the throne of Wesnoth, or take
-hand in any number of other adventures..."} -- from \url{http://www.wesnoth.org}
-\end{quote}
+\BOW{} is the first of three other \OS{} project I will analyze.
 
 \subsubsection{RQ1}
 \BOW{} comes with its own markup language, \textit{WesnothMarkupLanguage} - \textit{WML}, to describe units, campaigns, AIs,
@@ -180,16 +166,7 @@ means of using the WML validation tools. A screenshot of the WML editor is provi
 
 
 \subsection{Mega Glest}
-\GLEST{} as described on the project's website:
-\begin{quote}
-
-\begin{center}\includegraphics[scale=0.5]{pics/glestlogo}\end{center}
-
-\textit{"MegaGlest is a free and open source 3D real-time strategy (RTS) game, where you control the armies of one of
-seven different factions: Tech, Magic, Egyptians, Indians, Norsemen, Persian or Romans. The game is setup in one of 16
-naturally looking settings, which -like the unit models- are crafted with great appreciation for detail. Additional game
-data can be downloaded from within the game at no cost."} -- from \url{http://www.megaglest.org}
-\end{quote}
+The second project I will analyze is \GLEST{}.
 
 \subsubsection{RQ1}
 \GLEST{} uses a mixture of inheritance and component-based object description. Basic things are set using
@@ -215,7 +192,7 @@ This makes \GLEST{} more of a game engine with a focus on real-time strategy tha
 some mods: \url{http://www.moddb.com/games/megaglest/mods}} mods exist, proving that it is indeed possible to create new
 games using \GLEST{} as a game engine. 
 
-\subsection{RQ2}
+\subsubsection{RQ2}
 In order to add new objects to \GLEST{}, new XML files have to be created. It can contain the definition of a unit, campaign,
 tech tree or similar. See \listref{glestxml} for a shortened example of a basic unit definition. Every class has many
 parameters which allow the user to specify the details for every unit. 
@@ -266,18 +243,10 @@ custom \textit{g3d} 3D model file format can be opened. It allows to view basic 
 \end{figure}
 
 \subsection{0 A.D.}
+The last project in this case-study is \AD{}, which in contrast to the other projects  developes the game and engine
+seperately.
 
-\AD{} as described on the project's website:
-\begin{quote}
-\begin{center}\includegraphics[scale=0.8]{pics/0ad}\end{center}
-\textit{"0 A.D. (pronounced “zero ey-dee”) is a free, open-source, cross-platform real-time strategy (RTS) game of
-ancient warfare. In short, it is a historically-based war/economy game that allows players to relive or rewrite the
-history of Western civilizations, focusing on the years between 500 B.C. and 500 A.D. The project is highly ambitious,
-involving state-of-the-art 3D graphics, detailed artwork, sound, and a flexible and powerful custom-built game engine."}
--- from \url{http://wildfiregames.com/0ad/}
-\end{quote}
-
-\subsection{RQ1}
+\subsubsection{RQ1}
 \AD{} uses a completely component based approach to describe entities in the game. Units are described using a simple
 XML based format, making up single units of many components. The engine provides components like \textit{Attack},
 \textit{Cost}, \textit{Position} or \textit{VisualActor}. See \citet[Entity Component Documenation]{0adcomponents} for a
@@ -301,7 +270,7 @@ The XML format is specified by the components directly, making it easy to extend
 As the game logic is implemented using these external components, it is easy to exchange the complete gameplay logic,
 thus enabling very wide modding support and separating the game-play logic from the main engine.
 
-\subsection{RQ2}
+\subsubsection{RQ2}
 New objects can easily be added to the game by adding new XML unit entity definitions. No extra source-code is
 necessary. A shortened sample unit definition is given in \listref{0adxml}.
 
@@ -326,11 +295,11 @@ necessary. A shortened sample unit definition is given in \listref{0adxml}.
 </Entity>
 \end{lstlisting}
 
-\subsection{RQ3}
+\subsubsection{RQ3}
 All units are defined using basic XML based definitions, making it easy to edit them with a normal text editor. No
 changes to the code are necessary to edit any unit.
 
-\subsection{RQ4}
+\subsubsection{RQ4}
 \AD{} comes with an editor called \textit{Atlas}. It is a map and scenario editor and is not meant for editing unit
 definitions. The editor is very similar to \GLEST{}'s editor in terms of features. It allows the user to edit any detail
 of a map and comes with a unit viewer, that previews animations. A detailed user-manual is provided on the project's developer

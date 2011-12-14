@@ -21,7 +21,7 @@ An additional \textit{nice-to-have} requirement is that we do not add another de
 new library for the file format for example. This is not mandatory though and can be dropped if necessary. The usability
 of the code and file format has a higher priority.
 
-\paragraph{Gathered Requirements}
+\paragraph{Gathered Requirements}\label{requirements}
 
 \begin{enumerate}
     \item Porting the old code to the new structure should be possible in small steps
@@ -56,20 +56,8 @@ to ensure they are loosely coupled and easy to test.
 In this section I will discuss the details of the implementation.
 
 \subsubsection{Data Format}
-\UH{} already uses YAML\footnote{YAML website: \url{http://www.YAML.org/}} to describe scenarios and campaigns.
-\begin{quote}
-\textit{YAML is a human friendly data serialization standard for all programming languages.} -- \url{http://www.yaml.org}
-\end{quote}
-YAML has many similarities with Python, as it depends on the indention to be correct in order for the parser to work
-correctly and uses a similar syntax for lists and dictionaries. This has already proven useful for the \UH{} code-base
-in my experience as all code is well formatted and should result in nicely formatted object files.
-
-The reason to choose YAML at the time was, that it is very easy to read and edit by humans. This comes at the cost of
-being a little slower when parsing. As most data can be cached and has to be loaded from disc only once, this is not a
-major concern.
-
-I decided to use YAML for the object description files as well, the requirements match and it avoids adding another
-dependency to the project. The result of converting most of the data in the database to a YAML based file for each
+I decided to use YAML for the object description files, the requirements match and it avoids adding another
+dependency to the project -- which was a \textit{nice-to-have} requirement (\secref{requirements}). The result of converting most of the data in the database to a YAML based file for each
 object looks similar as \listref{uhyaml}. It contains all basic information needed for every building and a list of components
 that are used by this specific building. As the conversion from an inheritance based approach to a component based
 approach is only done in small steps, we have to specify the original base class for every object using the
