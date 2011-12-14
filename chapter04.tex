@@ -128,10 +128,7 @@ in another c++ class, like the unit class, or LUA helper code.
     experience=150
     level=3
     alignment=neutral
-    advances_to=null
-    {AMLA_DEFAULT}
     cost=10
-    usage=null
     description= _ "Elves choose their leaders for their wisdom and sensitivity to the balance of universal forces; foresight is what has protected them in times of uncertainty. Their just reign is rewarded by the unflagging fealty of their people, which is the greatest gift for which any ruler could ask."
     [portrait]
         size=400
@@ -164,6 +161,7 @@ means of using the WML validation tools. A screenshot of the WML editor is provi
     \label{fig:wesnothumc}
 \end{figure}
 
+\pagebreak
 
 \subsection{MegaGlest}
 The second project I will analyze is \GLEST{}.
@@ -226,17 +224,19 @@ source code seems nicely doable as there are not too many inheritance based obje
 of the map and is thus of great help for content creators. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{pics/glesteditor}
+    \includegraphics[width=0.90\textwidth]{pics/glesteditor}
     \caption{\GLEST{} map editor}
     \label{fig:glestmapeditor}
 \end{figure}
+
+\pagebreak
 
 \GLEST{} also comes with a model viewer, with which the
 custom \textit{g3d} 3D model file format can be opened. It allows to view basic models and particle effects.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\textwidth]{pics/glestmodelviewer}
+    \includegraphics[width=0.90\textwidth]{pics/glestmodelviewer}
     \caption{\GLEST{} model and particle viewer}
     \label{fig:glestmodelviewer}
 \end{figure}
@@ -349,7 +349,7 @@ enhanced component in and output system. Instead it uses the \textit{QT Framewor
   \end{tabularx}
 \end{table}
 
-\section{Transferring the Results to \UH{}}
+\subsection{Transferring the Results to \UH{}}
 Looking at the ease of content creation of \BOW{}, \GLEST{} and \AD{} it becomes clear that \UH{} is not nearly as
 flexible and easy to use as the other projects. While \AD{} has the cleanest component based architecture, it is not
 possible to transfer the design completely to \UH{}. 

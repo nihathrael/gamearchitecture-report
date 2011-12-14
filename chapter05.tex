@@ -100,6 +100,8 @@ type instance for later use.
 To achieve easy compatibility with the old inheritance based approach, a \textit{ComponentHolder} class has been
 introduced, that manages a set of components. This class can be included into the normal hierarchy of any in-game object.
 
+\pagebreak
+
 \paragraph{ComponentHolder}
 The \textit{ComponentHolder} has a very basic interface:
 \begin{itemize}
@@ -177,8 +179,6 @@ simple and fast, as it uses python built-in \textit{sorted()} method.
 settler class diagram in \figref{fig:settleruml} one can see that classes like \textit{Producer} have been pulled out of the
 inheritance tree and are now used by composition with the \textit{ComponentHolder} instead.
 
-\pagebreak
-
 \subsection{Added Components}
 Since the scope of the project is not big enough turn the \UH{} code-base into a completely component driven
 architecture, only parts of the classes have been converted to \textit{Component}s yet. The following \textit{Component}
@@ -248,12 +248,11 @@ difficult and time-consuming.
 
 The \textit{Producer} component greatly eases the changing and adjusting of production lines for the content creator, as
 all information is now at one place. Using the old SQLite system, the content creator had to look at countless tables to
-be able to get an overview of even a single production line. This has greatly improved. \listref{produceryaml} provides a short
-example.
+be able to get an overview of even a single production line. \listref{produceryaml} provides a short example.
 
 \begin{lstlisting}[language=python,caption=YAML representation of the Producer with two production lines,
 label=produceryaml]
-- ProducerComponent:
+- Producer:
     productionlines:
       7:
         produces:
@@ -353,26 +352,6 @@ The first lesson learned from this project is that refactoring the entire code o
 great benefits to the code-quality, as in less coupling and thus better testability, it is likely that more work in this
 area will be done.
 
-Moving deeply integrated code into the component structure has been proven to be a huge effort. After moving the
-\textit{Producer} code to the \textit{Producer} component, it took me en entire week to fix the bugs resulting from this
-refactoring and chances are the difficult ones have not even yet been found.
-
-I have made added/removed or changed over 6000 lines of code/data, as git\footnote{GIT website:
-\url{http://git-scm.com/}} (the revision control system) demonstrates (see \listref{gitdiff}). 
-All code from the main master branch was merged before the diff, which is based on master revision
-\textit{ec357d0c3458126375563684070c49f589d99442} and component revision \textit{370699fc2a095e0d95c70edf21cd568362d2aff7}.
-
-Looking at the number of files touched during the process (over 170), it is clear that a thorough understanding of the entire
-code-base is necessary if a change similar to this is planned and that a good test coverage can be of a huge help.
-
-I do not take credit for all changes, as some changes where made by other team members to the unit tests on the
-component branch, these changes are estimated to be arround 300-400 insertions or delitions.
-
-\begin{lstlisting}[language=bash,caption=GIT diff between the current master branch and my component branch,
-label=gitdiff]
-$ git diff --stat master component
-174 files changed, 4929 insertions(+), 1496 deletions(-)
-\end{lstlisting}
 
 Because of the amount of work this task requires, it was not possible to move the entire code to a
 component based system in the time of this project and only a few proof of concept components have been implemented.
@@ -389,6 +368,30 @@ This again enables easier work for the content creator.
 I my opinion YAML is a better choice than \textit{XML}, because it is easier to read by humans and thus easier to handle
 for non-programmers. Because we already use YAML for scenarios, it also means not adding another dependency and not
 learning another markup language.
+
+\paragraph{Time and Effort}
+Moving deeply integrated code into the component structure has been to be a huge effort. After moving the
+\textit{Producer} code to the \textit{Producer} component, it took me an entire week to fix the bugs resulting from this
+refactoring and chances are the difficult bugs ones have not even been found yet.
+
+I have added/removed or changed over 6000 lines of code/data, as git\footnote{GIT website:
+\url{http://git-scm.com/}} (the revision control system) demonstrates (see \listref{gitdiff}). 
+All code from the main master branch was merged before the diff, which is based on master revision
+\textit{ec357d0c345812637} and component revision \textit{370699fc2a095e0d9}.
+
+Looking at the number of files touched during the process (over 170), it is clear that a thorough understanding of the entire
+code-base is necessary if a change similar to this is planned and that a good test coverage can be of a huge help.
+
+I do not take credit for all changes, as some changes where made by other team members to the unit tests on the
+component branch, these changes are estimated to be arround 300-400 insertions or delitions.
+
+\begin{lstlisting}[language=bash,caption=GIT diff between the current master branch and my component branch,
+label=gitdiff]
+$ git diff --stat master component
+174 files changed, 4929 insertions(+), 1496 deletions(-)
+\end{lstlisting}
+
+\pagebreak
 
 \paragraph{Settler Class}
 To compare the old inheritance based class hierarchy, we compare the old UML tree given in \figref{fig:settleruml} with
