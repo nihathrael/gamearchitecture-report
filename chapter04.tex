@@ -307,7 +307,8 @@ pages \cite{0adeditor}.
 Tool support for editing unit entity descriptions is not provided.
 
 \subsection{Evaluation}
-All four games provide data-driven approaches in varying degree.
+All four games provide data-driven approaches in varying degree, see \tabref{tab:comparison} for a comparison between all
+four projects.
 
 \UH{} provides an SQLite driven approach, which usually requires editing some code to add new entities to the game. The
 code is made up of huge inheritance trees, making it difficult to change the code or add new features. Storing the data
@@ -326,7 +327,27 @@ components. The engine allows scripting the components in JavaScript to ease dev
 easily port components to c++, should speed be a problem. Components written in JavaScript can be hot-loaded during the run-time
 of the game, making it easy to debug and work on single parts of the game and directly seeing the impact on the game.
 The implementation of \AD{} is very similar to the system described in \cite{Fh02ageneric}, but it does not use the
-enhanced component in and output system. Instead it uses the QT like described version of messages between components.
+enhanced component in and output system. Instead it uses the \textit{QT Framework} like version of messages between components.
+
+
+\newcolumntype{x}[1]{%
+>{\centering\hspace{0pt}}p{#1}}%
+
+\begin{table}
+    \centering
+  \caption{Comparison of Results}
+  \label{tab:comparison}
+  \begin{tabularx}{1.02\textwidth}{| x{3.3cm} | x{2.2cm} | x{1.1cm} | x{1.2cm} | x{3.4cm} | x{1.2cm} | }
+    \hline
+    Game          & Component-Based & Data-Driven & File-Format & Tool-Support        & Mod-Support \tabularnewline
+    \hline
+    \UH{}         & No              & Partly      & SQLite      & None                & None \tabularnewline
+    \BOW{}        & Partly          & Yes         & WML         & Editor, Modelviewer & Yes  \tabularnewline
+    \GLEST{}      & Partly          & Yes         & XML         & Editor, Modelviewer & Yes  \tabularnewline
+    \AD{}         & Yes             & Yes         & XML         & Editor, Modelviewer & Yes  \tabularnewline
+    \hline
+  \end{tabularx}
+\end{table}
 
 \section{Transferring the Results to \UH{}}
 Looking at the ease of content creation of \BOW{}, \GLEST{} and \AD{} it becomes clear that \UH{} is not nearly as

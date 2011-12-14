@@ -81,6 +81,33 @@ difficult for the programmer to implement, it gives great benefits for the game-
 occurring with component-based systems can be solved using database proven concepts.
 
 
+\subsection{Component-Based Architecture}
+In a component-based architecture for a game a different approach than normal inheritance is followed. Instead of
+creating big inheritance trees to describe objects, the designer tries to use composition instead. The idea is to move single features of an
+in-game entity to into one class each.
+
+The basic idea is that each ingame entity is made up by a set of functionality. For example a basic unit in a game can
+be moved, rendered, animated, has a health system and collects resources. All of these singlen functionalities are moved
+into one class each. Therefore greatly allowing the reuse of these parts and ensuring that they are as loosely coupled
+with each other as possible. One the one hand, this makes writing tests easier and should make the code easier to
+maintain and change. On the other hand, if coupled with a easily accessible way of storing which component is used for
+which entity, it makes changing in-game objects easy for game-designers. This allows the game-designer to work on the
+game-logic and game-play without the need of a programmer to implement his small changes and ideas.
+
+In practise this usually means that every entity is only a unique identifier, to which a certain specific set of
+components is tied.
+
+Generally some way of communication between the components has to be found, this can be done by using changelisteners or
+a message/slot based system as used by the QT GUI framework to call specific methodes if a component changes.
+
+Another benifit of this solution is, that it is possible to implement managers for specific components. For example one
+could have a \textit{RenderingManager} which only knows about renderable components, nothing about any entities, just
+the components. This has the advantage that for rendering no useless comparisons of types or if clauses are needed to
+check if each entity should be rendered. Instead the manager can just use every object he knows of.
+
+Generally the big disadvantage of this kind of system is that it is harder to implement and more difficult to
+understand. The older object-oriented way is generally more intuitiv to understand, making it easier to implement for
+the programmer.
 
 \subsection{Used Technology and Software}
 In this section I present an overview over the technology used for this project.

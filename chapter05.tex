@@ -1,5 +1,3 @@
-\pagebreak
-
 \section{Requirements, Design \& Implementation}
 In this section I discuss the requirements and design of the new component system introduced into \UH{} and give details about the new
 implementation.
@@ -351,9 +349,30 @@ of research.
 
 \paragraph{Implementation}
 The first lesson learned from this project is that refactoring the entire code of \UH{} into a component based system is
-a lot of work, that if pursued further will require an enormous effort by the development team. Since it provides
+\textit{a lot} of work, that if pursued further will require an enormous effort by the development team. Since it provides
 great benefits to the code-quality, as in less coupling and thus better testability, it is likely that more work in this
 area will be done.
+
+Moving deeply integrated code into the component structure has been proven to be a huge effort. After moving the
+\textit{Producer} code to the \textit{Producer} component, it took me en entire week to fix the bugs resulting from this
+refactoring and chances are the difficult ones have not even yet been found.
+
+I have made added/removed or changed over 6000 lines of code/data, as git\footnote{GIT website:
+\url{http://git-scm.com/}} (the revision control system) demonstrates (see \listref{gitdiff}). 
+All code from the main master branch was merged before the diff, which is based on master revision
+\textit{ec357d0c3458126375563684070c49f589d99442} and component revision \textit{370699fc2a095e0d95c70edf21cd568362d2aff7}.
+
+Looking at the number of files touched during the process (over 170), it is clear that a thorough understanding of the entire
+code-base is necessary if a change similar to this is planned and that a good test coverage can be of a huge help.
+
+I do not take credit for all changes, as some changes where made by other team members to the unit tests on the
+component branch, these changes are estimated to be arround 300-400 insertions or delitions.
+
+\begin{lstlisting}[language=bash,caption=GIT diff between the current master branch and my component branch,
+label=gitdiff]
+$ git diff --stat master component
+174 files changed, 4929 insertions(+), 1496 deletions(-)
+\end{lstlisting}
 
 Because of the amount of work this task requires, it was not possible to move the entire code to a
 component based system in the time of this project and only a few proof of concept components have been implemented.

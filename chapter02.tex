@@ -1,15 +1,22 @@
 % {{{ Research methods
 \section{Research Methods and Questions}
-In this section we present our research questions and methods used in this work. 
+In this section I present my research questions and methods used in this work. 
 
 \subsection{Research Questions}
-We work on a set of four main research questions:
+I work on a set of four main research questions:
 \begin{itemize}
 	\item RQ1: Which architecture is used to describe objects in-game?
 	\item RQ2: How are new objects added to the game?
 	\item RQ3: Can existing objects easily be modified?
 	\item RQ4: Are tools available to help with adding/modifying objects?
 \end{itemize}
+
+I came up with these questions because of the problems I had when working on \UH{}. Adding new objects to the game
+became more difficult over the years and has proven to be a cumbersome job, which almost almost involes a programmer.
+This is not optimal, as time in very limited on \OS{} projects. Idealy the game-designer could add an object to the game
+without involing a programmer in the process, allowing for a better seperation of work.
+For this reason it would be nice to understand how other \OS{} games handle this problem and if those solutions are
+applicable to \UH{}.
 
 \subsection{RQ1}
 \textit{Which architecture is used to describe objects in-game?}
@@ -20,25 +27,32 @@ some other design to describe objects in game.
 \subsection{RQ2}
 \textit{How are new objects added to the game?}
 
-With this question we want to find out if many changes have to be made to the code to add new objects. We also want
-to know if the objects are data or code driven. If they are data driven, we research which technology is used. Our goal
+With this question I want to find out if many changes have to be made to the code to add new objects. I also want
+to know if the objects are data or code driven. If they are data driven, I research which technology is used. My goal
 is to find the easiest method of adding objects to the game.
 
 \subsection{RQ3}
 \textit{Can existing objects easily be modified?}
 
-Our goal is to assess whether existing objects are easily alterable or code has to be changed to modify them. We
+My goal is to assess whether existing objects are easily alterable or code has to be changed to modify them. I
 research what the possible implications of changing objects are.
 
 \subsection{RQ4}
 \textit{Are tools available to help with adding/modifying objects?}
 
-As creating game content is usually done by non-programmers, we want to assess how easy it is for them to add content to
+As creating game content is usually done by non-programmers, I want to assess how easy it is for them to add content to
 the game and if there are tools to support them in the process.
 
 \subsection{Research method}
-The first part of this work is four case studies in which we research four existing open source games. All games are
-mainly real-time strategy games, so their implementations face similar problems and are comparable to some degree. We
-will then use the gained knowledge to improve the handling of objects in \UH{} by designing and
-implementing a system combining the best practices we found in the case studies. 
+I base my research methods on the \textit{Engineering Method} (a refirenment of the \textit{Scientific Method}) as
+proposed in \cite{Basili:1992:EPS:647362.725507}. In this method existing solutions are examined in order to propose
+better solutions based on the gained knowledge. This process is repeated until no further improvement is possible.
+This method is based on the assumption that comparable solutions for the problem exist, which can be studied. 
+
+I do this by first conducting a case-study on four existing \OS{} games,
+in order to improve the first of them: \UH{}. This mainly means analyzing the code-bases of these projects and
+studying their documentation. All four projects are \OS{} strategy games, which makes them comparable to some degree.
+
+With the gained knowledge I design a new solution to the problem for \UH{} and follow up by implementing a first version
+of the proposed design and analyzing the results.
 % }}}
