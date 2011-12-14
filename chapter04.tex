@@ -1,7 +1,6 @@
-\pagebreak
 \section{Own Contribution}
-In this section I present four different case studies to answer our research questions.I begin with presenting
-\UH{} as it is the project which focus our efforts of improvement on. It is followed by \BOW{}, \GLEST{} and \AD{}.
+In this section I present four different case studies to answer our research questions. I begin with presenting
+\UH{} as it is the project which I focus my efforts of improvement on. It is followed by \BOW{}, \GLEST{} and \AD{}.
 The results are then evaluated and transferred to \UH{}.
 
 \subsection{Unknown Horizons}
@@ -9,8 +8,9 @@ The results are then evaluated and transferred to \UH{}.
 \begin{quote}
 
 \begin{center}\includegraphics[scale=0.2]{pics/uhlogo}\end{center}
-
-\UH{} is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with a well balanced economy and with strategic trade and diplomacy.
+\textit{"\UH{} is a 2D realtime strategy simulation with an emphasis on economy and city building. Expand your small settlement
+to a strong and wealthy colony, collect taxes and supply your inhabitants with valuable goods. Increase your power with
+a well balanced economy and with strategic trade and diplomacy."} -- from \url{http://www.unknown-horizons.org}
 \end{quote}
 
 \subsubsection{RQ1}
@@ -71,9 +71,9 @@ is very limited. All attributes of this building can then be added in the databa
 \subsubsection{RQ3}
 Modifying existing in-game objects in \UH{} can be easy and very difficult. This depends on the degree of
 change that is to be made. If only basic attributes like health, production time or similar are to be changed, then it
-can easily be done by someone who knows their way around the database. If however new functionality is required, for
-example an building which previously did not collect resources needs to collect resources, a change in the games code is
-most certainly required. Again sometimes if the functionality exists, this can be easy by just adding another class to
+can easily be done by someone who knows his way around the database. If however new functionality is required, for
+example a building which previously did not collect resources needs to collect resources, a change in the games code is
+most certainly required. If the desired functionality exists, this can either be an easy task by just adding another class to
 the hierarchy of the building or it can be very difficult if new functionality in the existing classes is required.
 
 A good example for this is the boat builder, which is mainly a \textit{CollectingBuilding} producing units instead of
@@ -92,16 +92,16 @@ repository\footnote{Link to the editor branch: \url{https://github.com/unknown-h
 
 \begin{center}\includegraphics[scale=0.4]{pics/wesnothlogo}\end{center}
 
-\textit{The Battle for Wesnoth is a Free, turn-based tactical strategy game with a high fantasy theme, featuring both
+\textit{"The Battle for Wesnoth is a Free, turn-based tactical strategy game with a high fantasy theme, featuring both
 single-player, and online/hotseat multiplayer combat. Fight a desperate battle to reclaim the throne of Wesnoth, or take
-hand in any number of other adventures... }
+hand in any number of other adventures..."} -- from \url{http://www.wesnoth.org}
 \end{quote}
 
 \subsubsection{RQ1}
 \BOW{} comes with its own markup language, \textit{WesnothMarkupLanguage} - \textit{WML}, to describe units, campaigns, AIs,
 missions, maps, sounds, etc. \textit{WML} is similar to other markup languages like \textit{XML}, but more human readable and provides some basic functions to create logic - like basic if-clauses and variables. 
 
-Entities are described in a component like way, not all clauses are components though. For most clauses like skills,
+Entities are described in a component like way, but not all tags are components. For most tags like skills,
 attacks and races components are used in code. Other attributes such as \textit{[portrait]} are not mapped to their own
 component, but are just read as data for the basic unit class. 
 
@@ -116,7 +116,7 @@ is not documented anywhere though \footnote{IRC logs regarding LUA API: \url{htt
 \paragraph{Data-driven?}
 As all game content is described using \textit{WML}, \BOW{} can be seen as completely data-driven. Wesnoth contains an in-game option
 to download other mods, containing new units, campaigns, etc. Within the concept of a round based strategy game the
-engine completely independent of the content.
+engine is completely independent of the content.
 
 \subsubsection{RQ2}
 New objects are added to the game by adding a new file containing basic \textit{WML} with the description of the unit.
@@ -171,7 +171,7 @@ campaigns, races and more for the user, provides syntax highlighting for the WML
 It can also launch the map editor and game with the specified campaigns and maps the user is working on and provides
 means of using the WML validation tools. A screenshot of the WML editor is provided in \figref{fig:wesnothumc}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{pics/wesnothumc}
     \caption{Wesnoth UMC Plugin WML editor}
@@ -185,10 +185,10 @@ means of using the WML validation tools. A screenshot of the WML editor is provi
 
 \begin{center}\includegraphics[scale=0.5]{pics/glestlogo}\end{center}
 
-\textit{MegaGlest is a free and open source 3D real-time strategy (RTS) game, where you control the armies of one of
+\textit{"MegaGlest is a free and open source 3D real-time strategy (RTS) game, where you control the armies of one of
 seven different factions: Tech, Magic, Egyptians, Indians, Norsemen, Persian or Romans. The game is setup in one of 16
 naturally looking settings, which -like the unit models- are crafted with great appreciation for detail. Additional game
-data can be downloaded from within the game at no cost.}
+data can be downloaded from within the game at no cost."} -- from \url{http://www.megaglest.org}
 \end{quote}
 
 \subsubsection{RQ1}
@@ -218,7 +218,7 @@ games using \GLEST{} as a game engine.
 \subsection{RQ2}
 In order to add new objects to \GLEST{}, new XML files have to be created. It can contain the definition of a unit, campaign,
 tech tree or similar. See \listref{glestxml} for a shortened example of a basic unit definition. Every class has many
-parameters which allow the user to specify many details for every unit. 
+parameters which allow the user to specify the details for every unit. 
 
 \begin{lstlisting}[language=XML,caption=A basic \GLEST{} (shortened) unit definition in XML, label=glestxml]
 <unit>
@@ -238,8 +238,6 @@ parameters which allow the user to specify many details for every unit.
 			<level name="master" kills="15"/>
 			<level name="legendary" kills="30"/>
 		</levels>
-...
-...
 </unit>
 \end{lstlisting}
 
@@ -249,19 +247,20 @@ source code seems nicely doable as there are not too many inheritance based obje
 
 \subsubsection{RQ4}
 \GLEST{} comes with a map editor(\figref{fig:glestmapeditor}) to help with creating new maps to use in-game. It allows editing every possible detail
-of the map and is thus of great help for content creators. \GLEST{} also comes with a model viewer, with which the
-custom \textit{g3d} 3D model file format can be opened. It allows to view basic models and particle effects.
-
-\begin{figure}[h!]
+of the map and is thus of great help for content creators. 
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{pics/glesteditor}
+    \includegraphics[width=0.75\textwidth]{pics/glesteditor}
     \caption{\GLEST{} map editor}
     \label{fig:glestmapeditor}
 \end{figure}
 
-\begin{figure}[h!]
+\GLEST{} also comes with a model viewer, with which the
+custom \textit{g3d} 3D model file format can be opened. It allows to view basic models and particle effects.
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{pics/glestmodelviewer}
+    \includegraphics[width=0.75\textwidth]{pics/glestmodelviewer}
     \caption{\GLEST{} model and particle viewer}
     \label{fig:glestmodelviewer}
 \end{figure}
@@ -271,12 +270,11 @@ custom \textit{g3d} 3D model file format can be opened. It allows to view basic 
 \AD{} as described on the project's website:
 \begin{quote}
 \begin{center}\includegraphics[scale=0.8]{pics/0ad}\end{center}
-
-
-\textit{0 A.D. (pronounced “zero ey-dee”) is a free, open-source, cross-platform real-time strategy (RTS) game of
+\textit{"0 A.D. (pronounced “zero ey-dee”) is a free, open-source, cross-platform real-time strategy (RTS) game of
 ancient warfare. In short, it is a historically-based war/economy game that allows players to relive or rewrite the
 history of Western civilizations, focusing on the years between 500 B.C. and 500 A.D. The project is highly ambitious,
-involving state-of-the-art 3D graphics, detailed artwork, sound, and a flexible and powerful custom-built game engine.}
+involving state-of-the-art 3D graphics, detailed artwork, sound, and a flexible and powerful custom-built game engine."}
+-- from \url{http://wildfiregames.com/0ad/}
 \end{quote}
 
 \subsection{RQ1}

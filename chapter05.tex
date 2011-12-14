@@ -1,26 +1,50 @@
-\section{Design \& Implementation}
-In this section I discuss the design of the new component system introduced into \UH{} and give details about the new
+\section{Requirements, Design \& Implementation}
+In this section I discuss the requirements and design of the new component system introduced into \UH{} and give details about the new
 implementation.
 
-\subsection{Design}
+\subsection{Requirements}
+I will first define the \textit{must-have} requirements, which need to be achieved to make the project a success.
 
-\subsubsection{Prerequisites}
-As the code base of \UH{} is already quite big and evolved it is not possible to create a design that requires a
+As the code-base of \UH{} is already quite big and evolved it is not possible to create a design that requires a
 complete rewrite of the code or which requires all the implementation work being done in one step. Therefore I aim at
 creating a design that can be implemented in smaller steps and is compatible with the current code design.
 
-\subsubsection{Data}
-A major flaw in the current \UH{} way of storing the game data is that all the game data is stored in SQLite databases,
-which are difficult to edit for non-programmers. As most content contributors are not programmers, this is a major
-concern. I will therefore move the data to a file based storage system, which is easily human read- and editable.
+I also aim at making it easy for content-creators to contribute new objects to the game and make it easy to edit
+current object descriptions. The lack of an easily editable format can be considered of \UH{}'s major weaknesses
+compared to other \OS{} games and has to be corrected. Therefore it is important to move away from the SQLite based
+data-storage to a more humana readable and easily editable file based format. This file based format should be easy to
+read and edit without special knowledge of computer programming.
 
-\subsubsection{Code}
+It should be possible to add new components to entities by editing these files, changing the code must not be necessary.
+
+An additional \textit{nice-to-have} requirement is that we do not add another dependency to the project, as in adding a
+new library for the file format for example. This is not mandatory though and can be dropped if necessary. The usability
+of the code and file format has a higher priority.
+
+\paragraph{Gathered Requirements}
+
+\begin{enumerate}
+    \item Porting the old code to the new structure should be possible in small steps
+    \item Move object data from SQLite to a file based format
+    \item The file format should be easy to understand by non-programmers
+    \item Add/remove components by editing the files, not code
+    \item No extra dependency (nice-to-have)
+\end{enumerate}
+
+\subsection{Design}
 To ensure compatibility with the old inheritance based code, I will use a \textit{ComponentHolder} class, which manages all the
 components an object has. This class can be included into any inheritance tree and thereby extending the current code
 with the possibility of containing components. By using this approach I can slowly extract single classes from the code
-and move them into components.
+and move them into components. A UML showing the planned implementation is shown in \figref{fig:codedesign}.
 
-A component should be class to handle a specific task only and should be as independent
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{pics/components_design}
+\caption{The code design for the \textit{ComponentHolder} and \textit{Component} classes}
+\label{fig:codedesign}
+\end{figure}
+
+A component should be a class to handle a specific task only and should be as independent
 as possible from other components. Clearly a component can depend on other components being present, for example if I
 decide to add a component that manages the production process, it will most likely depend on a component which manages
 storage of items for this entity. These dependencies should be checked when the object is constructed to warn the
@@ -32,10 +56,17 @@ to ensure they are loosely coupled and easy to test.
 In this section I will discuss the details of the implementation.
 
 \subsubsection{Data Format}
-\UH{} already uses YAML\footnote{YAML website: \url{http://www.YAML.org/}} to describe scenarios and campaigns. The
-reason to choose YAML at the time was, that it is very easy to read and edit by humans. This comes at the cost of being
-a little slower when parsing. As most data can be cached and has to be loaded from disc only once, this is not a major
-concern.
+\UH{} already uses YAML\footnote{YAML website: \url{http://www.YAML.org/}} to describe scenarios and campaigns.
+\begin{quote}
+\textit{YAML is a human friendly data serialization standard for all programming languages.} -- \url{http://www.yaml.org}
+\end{quote}
+YAML has many similarities with Python, as it depends on the indention to be correct in order for the parser to work
+correctly and uses a similar syntax for lists and dictionaries. This has already proven useful for the \UH{} code-base
+in my experience as all code is well formatted and should result in nicely formatted object files.
+
+The reason to choose YAML at the time was, that it is very easy to read and edit by humans. This comes at the cost of
+being a little slower when parsing. As most data can be cached and has to be loaded from disc only once, this is not a
+major concern.
 
 I decided to use YAML for the object description files as well, the requirements match and it avoids adding another
 dependency to the project. The result of converting most of the data in the database to a YAML based file for each
@@ -43,7 +74,6 @@ object looks similar as \listref{uhyaml}. It contains all basic information need
 that are used by this specific building. As the conversion from an inheritance based approach to a component based
 approach is only done in small steps, we have to specify the original base class for every object using the
 \textit{baseclass} attribute.
-
 
 \begin{lstlisting}[language=python,caption=A basic (shortened) building definition in YAML for \UH{}, label=uhyaml]
 id: 24
@@ -156,6 +186,17 @@ so that a list of \textit{Components} can be sorted by dependency order. This is
 dependency resolution, which can't detect circular dependencies, etc. It should be good enough for this purpose and is very
 simple and fast, as it uses python built-in \textit{sorted()} method.
 
+\paragraph{Implementation Overview}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{pics/components_implemented}
+\caption{UML diagram for the \textit{ComponentHolder} and \textit{Component} classes which were implemented}
+\label{fig:codeimpl}
+\end{figure}
+
+\figref{fig:codeimpl} shows the basic layout of the implementation in a simple UML diagram. When compared to the first
+settler class diagram in \figref{fig:settleruml} one can see that classes like \textit{Producer} have been pulled out of the
+inheritance tree and are now used by composition with the \textit{ComponentHolder} instead.
 
 \subsection{Added Components}
 Since the scope of the project is not big enough turn the \UH{} code-base into a completely component driven
@@ -294,11 +335,11 @@ In this section I will evaluate the project and the result.
 \subsection{Project}
 The project was executed in an autonomous way, without much interaction of the professor or other mentors. The focus was
 on mainly working with other people involved in \UH{} or other \OS{} games discussed in this work. This way it has a
-direct impact on the work of \UH{} and might have lead to some additional insights for members of other teams.
+direct impact on the work of \UH{} and might have led to some additional insights for members of other teams.
 
 I believe the result matches the style of project execution, it had more emphasis on implementing the new
-system than production many pages of documentation. A lot of time has been invested to implement a stable system that can be used in the
-production mainline of development in \UH{}.
+system than production many pages of documentation. A lot of time has been invested to implement a stable system that
+can be used in the production mainline of development in \UH{}.
 
 The plans for the implementation were worked on and discussed with the \UH{} team throughout the project and during the
 weekly meetings\footnote{Meeting logs:

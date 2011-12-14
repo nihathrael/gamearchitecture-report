@@ -1,7 +1,7 @@
 % Template for computer science thesis at the TU Munich
 % Authors Benedikt Mas y Parareda, Johannes Becker, Gunnar Schroeder, Elmar Juergens
 
-\documentclass[11pt,a4paper]{article}
+\documentclass[11pt,a4paper]{report}
 
 %Enable DVI forward search
 %\usepackage[active]{srcltx}
@@ -22,6 +22,8 @@
 \usepackage{natbib}
 \usepackage{array}
 \usepackage{todonotes}
+\usepackage{float}
+\usepackage{here}
 
 \lstset{
         basicstyle=\scriptsize\ttfamily, % Standardschrift
@@ -47,9 +49,9 @@
         framexbottommargin=4pt,
         %backgroundcolor=\color{lightgray},
         %showstringspaces=false,      % Leerzeichen in Strings anzeigen ?        
-		language=Java
+		language=Python
 }
-\lstloadlanguages{Java}
+\lstloadlanguages{Python}
 \usepackage{caption}
 \DeclareCaptionFont{white}{\color{white}}
 \DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.88, 0.44, 0.0,0.0}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}  }
@@ -115,7 +117,7 @@ morecomment=[l][\color{darkblue}]{rename},
 
 
 % Table of Contents
-\setcounter{tocdepth}{1}                % Sets depth of table of contents. 0 is chapter, 1 is sections, 2 is subsections
+\setcounter{tocdepth}{2}                % Sets depth of table of contents. 0 is chapter, 1 is sections, 2 is subsections
 \setcounter{secnumdepth}{2}             % Sets depth of numbering of toc contents
 \tableofcontents
 
