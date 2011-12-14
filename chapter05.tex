@@ -1,3 +1,5 @@
+\pagebreak
+
 \section{Requirements, Design \& Implementation}
 In this section I discuss the requirements and design of the new component system introduced into \UH{} and give details about the new
 implementation.
@@ -67,16 +69,9 @@ approach is only done in small steps, we have to specify the original base class
 id: 24
 name: Brickyard
 baseclass: production.Refiner
-radius: 8
-cost: 15
-cost_inactive: 5
 size_x: 2
 size_y: 4
-inhabitants_start: 1
 inhabitants_max: 1
-button_name: brickyard-1
-tooltip_text: Turns clay into bricks.
-settler_level: 1
 buildingcosts: {1: 500, 4: 6, 6: 1}
 components:
 - HealthComponent: {maxhealth: 1000}
@@ -92,8 +87,6 @@ components:
     inventory:
       SlotsStorage:
         slot_sizes: {21: 4, 7: 10}
-actionsets:
-  as_brickyard0: {level: 0}
 \end{lstlisting}
 
 \paragraph{Loading and Caching}
@@ -140,7 +133,7 @@ Each \textit{Component} has to implement the basic interface:
     \item initialize()
     \item load()/save()
     \item remove()
-    \item get\_instance() - classmethod
+    \item get\_instance() - class-method
 \end{itemize}
 As with the \textit{ComponentHolder} the \textit{Component} has to implement an \textit{initialize()} method, in which
 all the setup should be done. This method is called automatically by the \textit{ComponentHolder}, so no special care
@@ -185,6 +178,8 @@ simple and fast, as it uses python built-in \textit{sorted()} method.
 \figref{fig:codeimpl} shows the basic layout of the implementation in a simple UML diagram. When compared to the first
 settler class diagram in \figref{fig:settleruml} one can see that classes like \textit{Producer} have been pulled out of the
 inheritance tree and are now used by composition with the \textit{ComponentHolder} instead.
+
+\pagebreak
 
 \subsection{Added Components}
 Since the scope of the project is not big enough turn the \UH{} code-base into a completely component driven

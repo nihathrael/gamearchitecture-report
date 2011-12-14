@@ -207,7 +207,6 @@ parameters which allow the user to specify the details for every unit.
 		<armor value="15"/>	
 		<armor-type value="leather"/>
 		<sight value="12"/>
-		<time value="200"/>	
 		<multi-selection value="true"/>	
 		<cellmap value="false"/>
 		<levels>
@@ -243,13 +242,13 @@ custom \textit{g3d} 3D model file format can be opened. It allows to view basic 
 \end{figure}
 
 \subsection{0 A.D.}
-The last project in this case-study is \AD{}, which in contrast to the other projects  developes the game and engine
-seperately.
+The last project in this case-study is \AD{}, which in contrast to the other projects  develops the game and engine
+separately.
 
 \subsubsection{RQ1}
 \AD{} uses a completely component based approach to describe entities in the game. Units are described using a simple
 XML based format, making up single units of many components. The engine provides components like \textit{Attack},
-\textit{Cost}, \textit{Position} or \textit{VisualActor}. See \citet[Entity Component Documenation]{0adcomponents} for a
+\textit{Cost}, \textit{Position} or \textit{VisualActor}. See \citet[Entity Component Documentation]{0adcomponents} for a
 complete list and details. 
 
 It is possible to implement components in c++ and JavaScript. The general idea is to use
